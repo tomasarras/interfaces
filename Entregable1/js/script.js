@@ -1,69 +1,45 @@
+import Lapiz from "./herramientas/Lapiz.js";
+import Goma from "./herramientas/Goma.js";
+import * as constants from "./helper/constantes.js";
+import Rectangulo from "./figuras/Rectangulo.js";
+
 document.addEventListener("DOMContentLoaded",()=>{
-    const width = 300;
-    const height = 300;
-    let canvas = document.querySelector("#js-canvas");
-    canvas.addEventListener("mousedown",(e)=> dibujar(e) );
+    let lapiz = new Lapiz();
+    let goma = new Goma();
+    let rectangulo = new Rectangulo();
+    goma.setBackgroundColor(constants.COLOR_BLANCO);
+    let herramientaActiva = null;
 
-    function dibujar(e) {
-        let coordenadas = {
-            "x" : parseInt(e.layerX),
-            "y" : parseInt(e.layerY)
-        };
+    let btnLapiz = document.querySelector("#js-btn-lapiz");
+    btnLapiz.addEventListener("click", ()=> { cambiarHerramienta(lapiz) });
 
-        let color = {
-            "r" : 255,
-            "g" : 0,
-            "b" : 0,
-            "a" : 255
-        };
+    let btnGoma = document.querySelector("#js-btn-goma");
+    btnGoma.addEventListener("click",()=>{ cambiarHerramienta(goma) });
 
-        let ctx = document.querySelector("#js-canvas").getContext("2d");
-        let imageData = ctx.getImageData(0,0,width,height);
-        setPixel(imageData,coordenadas,color);
-        ctx.putImageData(imageData,0,0);
+    let inputGrosor = document.querySelector("#js-grosor");
+    inputGrosor.addEventListener("change", actualizarGrosor);
+    
+    function cambiarHerramienta(herramienta) {
+        let canvas = document.querySelector("#js-canvas");
+        let handlerDown = (e) => herramientaActiva.mouseDown(e);
+        let handlerClick = (e) => herramientaActiva.click(e);
 
-        let handler = (event) => {
-            coordenadas = dibujoMovimiento(coordenadas,imageData,event,color);
-        };
-
-        canvas.addEventListener("mousemove", handler);
-        canvas.addEventListener("mouseup", ()=>{
-            canvas.removeEventListener("mousemove",handler);
-        });
-    }
-
-    function dibujoMovimiento(ultimasCoordenadas,imageData,e,color) {
-        let ctx = document.querySelector("#js-canvas").getContext("2d");
-        let nuevasCoordenadas = {
-            "x" : e.layerX,
-            "y" : e.layerY
-        }
-        
-        while (nuevasCoordenadas.x != ultimasCoordenadas.x || nuevasCoordenadas.y != ultimasCoordenadas.y) {
-            if (nuevasCoordenadas.x > ultimasCoordenadas.x) {
-                ultimasCoordenadas.x++;
-            } else if (nuevasCoordenadas.x < ultimasCoordenadas.x) {
-                ultimasCoordenadas.x--;
-            }
-            
-            if (nuevasCoordenadas.y > ultimasCoordenadas.y) {
-                ultimasCoordenadas.y++;
-            } else if (nuevasCoordenadas.y < ultimasCoordenadas.y) {
-                ultimasCoordenadas.y--;
-            }
-
-            setPixel(imageData,ultimasCoordenadas,color);
-            ctx.putImageData(imageData,0,0);
+        if (herramientaActiva != null) {
+            canvas.removeEventListener("mousedown", handlerDown);
+            canvas.removeEventListener("click", handlerClick);
         }
 
-        return nuevasCoordenadas;
+        herramientaActiva = herramienta;
+        canvas.addEventListener("mousedown", handlerDown);
+        canvas.addEventListener("click", handlerClick);
     }
 
-    function setPixel(imageData,coordenadas,color) {
-        let index = (coordenadas.x + coordenadas.y * imageData.width) * 4;
-        imageData.data[index+0] = color.r;
-        imageData.data[index+1] = color.g;
-        imageData.data[index+2] = color.b;
-        imageData.data[index+3] = color.a;
+    function actualizarGrosor() {
+        let inputGrosor = document.querySelector("#js-grosor");
+        let grosor = parseInt(inputGrosor.value);
+        if (herramientaActiva != null) {
+            herramientaActiva.setGrosor(grosor);
+        }
     }
+
 });
