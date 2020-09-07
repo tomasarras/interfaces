@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", ()=>{
+    let width = 1024;
+    let height = 512;
     let ctx = document.querySelector("#myCanvas").getContext('2d');
     let btnBlancoNegro = document.querySelector("#js-filtro-blanco-negro");
     btnBlancoNegro.addEventListener("click",agregarFiltroBlancoNegro);
@@ -12,7 +14,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
     }
 
     function agregarFiltroBlancoNegro() {
-        let imageData = ctx.getImageData(0,0,1024,512);
+        let imageData = ctx.getImageData(0,0,width,height);
         for (let x = 0; x < imageData.width; x++) {
             for (let y = 0; y < imageData.height; y++) {
                 r = getRed(imageData,x,y);
