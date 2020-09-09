@@ -2,13 +2,13 @@ import Lapiz from "./herramientas/Lapiz.js";
 import Goma from "./herramientas/Goma.js";
 import * as constants from "./helper/constantes.js";
 import Rectangulo from "./figuras/Rectangulo.js";
+import Canvas from "./helper/Canvas.js";
 
 document.addEventListener("DOMContentLoaded",()=>{
-    let lapiz = new Lapiz();
-    let goma = new Goma();
-    let rectangulo = new Rectangulo();
-    goma.setBackgroundColor(constants.COLOR_BLANCO);
+    let lapiz = Lapiz.getInstance();
+    let goma = Goma.getInstance();
     let herramientaActiva = null;
+    Canvas.updateCanvas();
 
     let btnLapiz = document.querySelector("#js-btn-lapiz");
     btnLapiz.addEventListener("click", ()=> { cambiarHerramienta(lapiz) });
@@ -20,18 +20,12 @@ document.addEventListener("DOMContentLoaded",()=>{
     inputGrosor.addEventListener("change", actualizarGrosor);
     
     function cambiarHerramienta(herramienta) {
-        let canvas = document.querySelector("#js-canvas");
-        let handlerDown = (e) => herramientaActiva.mouseDown(e);
-        let handlerClick = (e) => herramientaActiva.click(e);
-
         if (herramientaActiva != null) {
-            canvas.removeEventListener("mousedown", handlerDown);
-            canvas.removeEventListener("click", handlerClick);
+            herramientaActiva.desactivar();
         }
 
         herramientaActiva = herramienta;
-        canvas.addEventListener("mousedown", handlerDown);
-        canvas.addEventListener("click", handlerClick);
+        herramientaActiva.activar();
     }
 
     function actualizarGrosor() {

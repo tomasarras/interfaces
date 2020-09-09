@@ -1,62 +1,72 @@
 import Herramienta from "./Herramienta.js"
-import * as constants from "../helper/constantes.js";
+import { X,Y } from "../helper/constantes.js";
+import Canvas from "../helper/Canvas.js";
 
 class Lapiz extends Herramienta {
-    canvas = document.querySelector("#js-canvas");
-    ctx = this.canvas.getContext("2d");
     ultimasCoordenadas;
+    static instance = new Lapiz();
+
+    static getInstance() {
+        return this.instance;
+    }
     
-    mouseDown(event){
+    activar() {
         this.ultimasCoordenadas = new Array();
-        let X = constants.X;
-        let Y = constants.Y;
-        this.ultimasCoordenadas[X] = event.layerX;
-        this.ultimasCoordenadas[Y] = event.layerY;
+        Canvas.getCanvas().addEventListener("mousedown", this.mouseDown);
+    }
 
-        let imageData = this.ctx.getImageData(0,0,this.width,this.height);
-        this.setPixel(imageData,this.ultimasCoordenadas,this.colorHerramienta);
-        this.ctx.putImageData(imageData,0,0);
+    desactivar() {
+        Canvas.getCanvas().removeEventListener("mousedown", this.mouseDown);
+    }
 
-        let handler = (event) => this.mouseMove(event);
+    getUltimasCoordenadas() {
+        return this.ultimasCoordenadas;
+    }
 
-        this.canvas.addEventListener("mousemove", handler);
-        this.canvas.addEventListener("mouseup", ()=>{
-            this.canvas.removeEventListener("mousemove", handler);
+    mouseDown(event){
+        let canvas = Canvas.getCanvas();
+        let ctx = Canvas.getCtx();
+        let lapiz = Lapiz.getInstance();
+        lapiz.ultimasCoordenadas[X] = event.layerX;
+        lapiz.ultimasCoordenadas[Y] = event.layerY;
+        let imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
+        Canvas.setPixel(imageData,lapiz.ultimasCoordenadas,lapiz.color);
+        ctx.putImageData(imageData,0,0);
+
+        let handlerMove = (event) => lapiz.mouseMove(event);
+
+        canvas.addEventListener("mousemove", handlerMove);
+        canvas.addEventListener("mouseup", ()=>{
+            canvas.removeEventListener("mousemove", handlerMove);
         });
     }
 
     mouseMove(event){
-        let imageData = this.ctx.getImageData(0,0,this.width,this.height);
-        let X = constants.X;
-        let Y = constants.Y;
+        let imageData = Canvas.getImageData();
+        let lapiz = Lapiz.getInstance();
+        let uCoordenadas = lapiz.getUltimasCoordenadas();
         let nuevasCoordenadas = new Array();
         nuevasCoordenadas[X] = event.layerX;
         nuevasCoordenadas[Y] = event.layerY;
-
-        while (nuevasCoordenadas[X] != this.ultimasCoordenadas[X] || nuevasCoordenadas[Y] != this.ultimasCoordenadas[Y]) {
-            if (nuevasCoordenadas[X] > this.ultimasCoordenadas[X]) {
-                this.ultimasCoordenadas[X]++;
-            } else if (nuevasCoordenadas[X] < this.ultimasCoordenadas[X]) {
-                this.ultimasCoordenadas[X]--;
+        
+        Canvas.setPixel(imageData,uCoordenadas,lapiz.color);
+        while (nuevasCoordenadas[X] != uCoordenadas[X] || nuevasCoordenadas[Y] != uCoordenadas[Y]) {
+            if (nuevasCoordenadas[X] > uCoordenadas[X]) {
+                uCoordenadas[X]++;
+            } else if (nuevasCoordenadas[X] < uCoordenadas[X]) {
+                uCoordenadas[X]--;
             }
             
-            if (nuevasCoordenadas[Y] > this.ultimasCoordenadas[Y]) {
-                this.ultimasCoordenadas[Y]++;
-            } else if (nuevasCoordenadas[Y] < this.ultimasCoordenadas[Y]) {
-                this.ultimasCoordenadas[Y]--;
+            if (nuevasCoordenadas[Y] > uCoordenadas[Y]) {
+                uCoordenadas[Y]++;
+            } else if (nuevasCoordenadas[Y] < uCoordenadas[Y]) {
+                uCoordenadas[Y]--;
             }
 
-            this.setPixel(imageData,this.ultimasCoordenadas,this.colorHerramienta);
+            Canvas.setPixel(imageData,uCoordenadas,lapiz.color);
         }
-        this.ctx.putImageData(imageData,0,0);
+        Canvas.putImageData(imageData);
     }
-
-    click() {}
-}
-
-function pintarPixel(imageData) {
-    this.setPixel(imageData,this.ultimasCoordenadas,this.colorHerramienta);
-    this.ctx.putImageData(imageData,0,0);
 }
 
 export default Lapiz;

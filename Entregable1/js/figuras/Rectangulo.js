@@ -1,70 +1,50 @@
-import * as constants from "../helper/constantes.js";
-import Herramienta from "../herramientas/Herramienta.js";
+import { X,Y } from "../helper/constantes.js";
+import Canvas from "../helper/Canvas.js";
 
-class Rectangulo extends Herramienta {
+class Rectangulo {
 
-    dibujarBorde(coordenadas,width,height,color) {
-        let canvas = document.querySelector("#js-canvas");
-        let ctx = canvas.getContext("2d");
-        let imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
-        let xInicial = coordenadas[constants.X] - Math.floor(width / 2);
-        let yInicial = coordenadas[constants.Y] - Math.floor(height / 2);
-        let y = yInicial;
-        let x = xInicial;
+    static dibujarBorde(coordenadas,width,height,color,imageData) {
+        let xInicial = coordenadas[X] - Math.floor(width / 2);
+        let yInicial = coordenadas[Y] - Math.floor(height / 2);
         let coordenadaActual = new Array();
-
-        for (let i = 0; i < width; i++) {
-            coordenadaActual = [x,y];
-            this.setPixel(imageData,coordenadaActual,color);
-            x++;
-        }
-        x--;
-        
-        for (let j = 0; j < height; j++) {
-            coordenadaActual = [x,y];
-            this.setPixel(imageData,coordenadaActual,color);
-            y--;
-        }
-
-        y = yInicial;
-        x = xInicial;
-
-        for (let j = 0; j < height; j++) {
-            coordenadaActual = [x,y];
-            this.setPixel(imageData,coordenadaActual,color);
-            y--;
-        }
-
-        for (let i = 0; i < width; i++) {
-            coordenadaActual = [x,y];
-            this.setPixel(imageData,coordenadaActual,color);
-            x++;
-        }
-
-        return imageData;
+        coordenadaActual = [xInicial,yInicial];
+        this.rectaEjeX(coordenadaActual,width,imageData,color);
+        this.rectaEjeY(coordenadaActual,height,imageData,color);
+        coordenadaActual = [xInicial,yInicial];
+        this.rectaEjeY(coordenadaActual,height,imageData,color);
+        this.rectaEjeX(coordenadaActual,width,imageData,color);
     }
 
-    dibujar(coordenadas,width,height,color) {
-        let canvas = document.querySelector("#js-canvas");
-        let ctx = canvas.getContext("2d");
-        let imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
-        let xInicial = coordenadas[constants.X] - Math.floor(width / 2);
-        let yInicial = coordenadas[constants.Y] - Math.floor(height / 2);
+    static rectaEjeX(coordenadas,cantidadPixeles,imageData,color) {
+        for (let i = 0; i < cantidadPixeles; i++) {
+            Canvas.setPixel(imageData,coordenadas,color);
+            coordenadas[X]++;
+        }
+    }
+
+    static rectaEjeY(coordenadas,cantidadPixeles,imageData,color) {
+        for (let j = 0; j < cantidadPixeles; j++) {
+            Canvas.setPixel(imageData,coordenadas,color);
+            coordenadas[Y]++;
+        }
+    }
+
+    static dibujar(coordenadas,width,height,color,imageData) {
+        let xInicial = coordenadas[X] - Math.floor(width / 2);
+        let yInicial = coordenadas[Y] - Math.floor(height / 2);
         let y = yInicial;
         let x = xInicial;
         let coordenadaActual = new Array();
 
-        for (let i = 0; i < width; i++) {
+        for (let i = 0; i <= width; i++) {
             y = yInicial;
-            for (let j = 0; j < height; j++) {
+            for (let j = 0; j <= height; j++) {
                 coordenadaActual = [x,y];
                 y++;
-                this.setPixel(imageData,coordenadaActual,color);
+                Canvas.setPixel(imageData,coordenadaActual,color);
             }
             x++;
         }
-
-        return imageData;
     }
 }
 

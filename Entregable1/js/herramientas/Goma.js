@@ -1,65 +1,107 @@
 import Herramienta from "./Herramienta.js"
-import * as constants from "../helper/constantes.js";
+import { X, Y, COLOR_BLANCO, COLOR_NEGRO } from "../helper/constantes.js";
 import Rectangulo from "../figuras/Rectangulo.js";
+import Canvas from "../helper/Canvas.js";
 
 class Goma extends Herramienta {
     ultimasCoordenadas;
-    canvas = document.querySelector("#js-canvas");
-    ctx = this.canvas.getContext("2d");
+    mantenerClick = false;
+    imageDataOld;
+    imageData;
+    static instance = new Goma();
 
-    setBackgroundColor(color) {
-        this.colorHerramienta = color;
+    static getInstance() {
+        return this.instance;
     }
 
-    mouseDown(event) {
+    activar() {
+        this.color = COLOR_BLANCO;
+        let canvas = Canvas.getCanvas();
         this.ultimasCoordenadas = new Array();
-        let X = constants.X;
-        let Y = constants.Y;
-        this.ultimasCoordenadas[X] = event.layerX;
-        this.ultimasCoordenadas[Y] = event.layerY;
+        this.imageDataOld = Canvas.getImageData();
+        this.imageData = Canvas.getImageData();
 
-        this.grosor = this.getGrosor();
-        let rectangulo = new Rectangulo();
-        let imageData = rectangulo.dibujar(this.ultimasCoordenadas,this.grosor,this.grosor,this.colorHerramienta);
-        this.ctx.putImageData(imageData,0,0);
-
-        let handler = (event) => this.mouseMove(event);
-
-        this.canvas.addEventListener("mousemove", handler);
-        this.canvas.addEventListener("mouseup", ()=>{
-            this.canvas.removeEventListener("mousemove",handler);
-        });
+        canvas.addEventListener("mousemove", this.mouseOver);
+        canvas.addEventListener("mousedown", this.mouseDown);
+        canvas.addEventListener("mouseup", this.mouseUp);
+        canvas.addEventListener("mouseleave", this.mouseLeave)
+    }
+    
+    desactivar() {
+        let canvas = Canvas.getCanvas();
+        canvas.removeEventListener("mousemove", this.mouseOver);
+        canvas.removeEventListener("mousedown", this.mouseDown);
+        canvas.removeEventListener("mouseup", this.mouseUp);
+        canvas.removeEventListener("mouseleave", this.mouseLeave)
     }
 
-    mouseMove(event){
-        let X = constants.X;
-        let Y = constants.Y;
-        let nuevasCoordenadas = new Array();
-        nuevasCoordenadas[X] = event.layerX;
-        nuevasCoordenadas[Y] = event.layerY;
-        let imageData;
-        let rectangulo = new Rectangulo();
+    mouseOver(event) {
+        let goma = Goma.getInstance();
 
-        while (nuevasCoordenadas[X] != this.ultimasCoordenadas[X] || nuevasCoordenadas[Y] != this.ultimasCoordenadas[Y]) {
-            if (nuevasCoordenadas[X] > this.ultimasCoordenadas[X]) {
-                this.ultimasCoordenadas[X]++;
-            } else if (nuevasCoordenadas[X] < this.ultimasCoordenadas[X]) {
-                this.ultimasCoordenadas[X]--;
-            }
-            
-            if (nuevasCoordenadas[Y] > this.ultimasCoordenadas[Y]) {
-                this.ultimasCoordenadas[Y]++;
-            } else if (nuevasCoordenadas[Y] < this.ultimasCoordenadas[Y]) {
-                this.ultimasCoordenadas[Y]--;
-            }
-
-            imageData = rectangulo.dibujar(this.ultimasCoordenadas,this.grosor,this.grosor,this.colorHerramienta);
-            this.ctx.putImageData(imageData,0,0);
+        if (goma.mantenerClick){
+            goma.borrar(event);
+        } else {
+            goma.mostrarPuntero(event);
         }
     }
 
-    click() {}
+    mostrarPuntero(event) {
+        Canvas.putImageData(this.imageDataOld);
+        this.imageData = Canvas.getImageData();
+        let coordenadas = new Array();
+        coordenadas[X] = event.layerX;
+        coordenadas[Y] = event.layerY;
+        Rectangulo.dibujar(coordenadas,this.grosor,this.grosor,this.color,this.imageData);
+        Rectangulo.dibujarBorde(coordenadas,this.grosor,this.grosor,COLOR_NEGRO,this.imageData);
+        Canvas.putImageData(this.imageData);
+    }
 
+    borrar(event){
+        let g = Goma.getInstance();
+        let nuevasCoordenadas = new Array();
+        nuevasCoordenadas[X] = event.layerX;
+        nuevasCoordenadas[Y] = event.layerY;
+        let imageData = Canvas.getImageData();
+        
+        Rectangulo.dibujar(g.ultimasCoordenadas,g.grosor,g.grosor,g.color,imageData);
+        while (nuevasCoordenadas[X] != g.ultimasCoordenadas[X] || nuevasCoordenadas[Y] != g.ultimasCoordenadas[Y]) {
+            if (nuevasCoordenadas[X] > g.ultimasCoordenadas[X]) {
+                g.ultimasCoordenadas[X]++;
+            } else if (nuevasCoordenadas[X] < g.ultimasCoordenadas[X]) {
+                g.ultimasCoordenadas[X]--;
+            }
+            
+            if (nuevasCoordenadas[Y] > g.ultimasCoordenadas[Y]) {
+                g.ultimasCoordenadas[Y]++;
+            } else if (nuevasCoordenadas[Y] < g.ultimasCoordenadas[Y]) {
+                g.ultimasCoordenadas[Y]--;
+            }
+            
+            Rectangulo.dibujar(g.ultimasCoordenadas,g.grosor,g.grosor,g.color,imageData);
+        }
+        Canvas.putImageData(imageData);
+    }
+
+    mouseDown(event) {
+        let goma = Goma.getInstance();
+
+        goma.ultimasCoordenadas[X] = event.layerX;
+        goma.ultimasCoordenadas[Y] = event.layerY;
+        goma.mantenerClick = true;
+        goma.borrar(event);
+    }
+    
+    mouseUp(event) {
+        let goma = Goma.getInstance();
+        goma.mantenerClick = false;
+        goma.imageDataOld = Canvas.getImageData();
+        goma.mostrarPuntero(event);
+    }
+    
+    mouseLeave() {
+        let goma = Goma.getInstance();
+        Canvas.putImageData(goma.imageDataOld);
+    }
 }
 
 export default Goma;
