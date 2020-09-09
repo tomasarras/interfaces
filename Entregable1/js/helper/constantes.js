@@ -6,3 +6,4 @@ export const BLUE = 2;
 export const ALPHA = 3;
 export const COLOR_NEGRO = [0,0,0,255];
 export const COLOR_BLANCO = [255,255,255,255];
+export const COLOR_BLANCO_HEX = "#FFFFFF";

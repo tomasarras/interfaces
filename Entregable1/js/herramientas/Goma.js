@@ -22,6 +22,7 @@ class Goma extends Herramienta {
         this.imageData = Canvas.getImageData();
 
         canvas.addEventListener("mousemove", this.mouseOver);
+        canvas.addEventListener("mouseenter", this.mouseEnter);
         canvas.addEventListener("mousedown", this.mouseDown);
         canvas.addEventListener("mouseup", this.mouseUp);
         canvas.addEventListener("mouseleave", this.mouseLeave)
@@ -43,6 +44,12 @@ class Goma extends Herramienta {
         } else {
             goma.mostrarPuntero(event);
         }
+    }
+
+    mouseEnter() {
+        let goma = Goma.getInstance();
+        goma.imageData = Canvas.getImageData();
+        goma.imageDataOld = Canvas.getImageData();
     }
 
     mostrarPuntero(event) {
@@ -101,6 +108,8 @@ class Goma extends Herramienta {
     mouseLeave() {
         let goma = Goma.getInstance();
         Canvas.putImageData(goma.imageDataOld);
+        goma.imageData = Canvas.getImageData();
+        goma.imageDataOld = Canvas.getImageData();
     }
 }
 

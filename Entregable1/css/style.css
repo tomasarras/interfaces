@@ -1,3 +1,7 @@
 .div-canvas {
     border: 1px solid black;
 }
+
+.oculto {
+    display: none;
+}

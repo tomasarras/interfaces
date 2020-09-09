@@ -1,4 +1,4 @@
-import { X,Y,RED,GREEN,BLUE,ALPHA } from "../helper/constantes.js";
+import { X,Y,RED,GREEN,BLUE,ALPHA,COLOR_BLANCO_HEX } from "../helper/constantes.js";
 
 class Canvas {
     static canvas;
@@ -38,13 +38,38 @@ class Canvas {
     }
 
     static setPixel(imageData,coordenadas,color) {
-        if (coordenadas[X] < this.width && coordenadas[X] > 0) {
+        if (coordenadas[X] < this.width && coordenadas[X] >= 0) {
             let index = (coordenadas[X] + coordenadas[Y] * imageData.width) * 4;
             imageData.data[index+RED] = color[RED];
             imageData.data[index+GREEN] = color[GREEN];
             imageData.data[index+BLUE] = color[BLUE];
             imageData.data[index+ALPHA] = color[ALPHA];
         }
+    }
+
+    static getCopyImageData(originalImageData) {
+        let imageDataCopy = new ImageData(
+            new Uint8ClampedArray(originalImageData.data),
+            originalImageData.width,
+            originalImageData.height
+          );
+
+        return imageDataCopy;
+    }
+
+    static getPixelColor(coordenadas,imageData) {
+        let index = (coordenadas[X] + coordenadas[Y] * imageData.width) * 4;
+        let color = new Array();
+        color[RED] = imageData.data[index+RED];
+        color[GREEN] = imageData.data[index+GREEN];
+        color[BLUE] = imageData.data[index+BLUE];
+        color[ALPHA] = imageData.data[index+ALPHA];
+        return color;
+    }
+
+    static lienzoBlanco() {
+        this.ctx.fillStyle = COLOR_BLANCO_HEX;  
+        this.ctx.fillRect(0, 0, this.width, this.height);
     }
 }
 

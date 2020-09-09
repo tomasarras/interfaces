@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="div-canvas">
-        <canvas id="js-canvas" width="1024" height="512"></canvas>
+        <canvas id="js-canvas" width="1000" height="512"></canvas>
     </div>
     <div class="herramientas">
         <button><i class="fas fa-pencil-alt" id="js-btn-lapiz"></i></button>
@@ -25,6 +25,21 @@
           <input type="range" class="form-control-range" id="js-grosor">
         </div>
     </form>
+    
+    <form>
+        <div class="form-group">
+          <label for="formControlRange">Intensidad del filtro</label>
+          <input type="range" class="form-control-range" id="js-intensidad" min="0" max="255">
+        </div>
+    </form>
+
+    <button class="btn btn-primary" id="js-btn-lienzo-blanco">Lienzo en blanco</button>
+    <label for="js-cargar-imagen" class="btn btn-primary">Select Image</label>
+    <input type="file" id="js-cargar-imagen" class="oculto" accept="image/*">
+
+    <button id="js-btn-filtro-negativo">Negativo</button>
+    <button id="js-btn-filtro-blanco-negro">Blanco y negro</button>
+    <button id="js-btn-filtro-binarizacion">Binarizacion</button>
     
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
