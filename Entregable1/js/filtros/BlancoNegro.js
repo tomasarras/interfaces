@@ -7,9 +7,8 @@ class BlancoNegro extends Filtro {
     iteracion(coordenadaActual,imageData,intensidad) {
         let color = Canvas.getPixelColor(coordenadaActual,imageData);
         let gris = (color[RED] + color[GREEN] + color[BLUE]) / 3;
-        color[RED] = gris;
-        color[GREEN] = gris;
-        color[BLUE] = gris;
+        color[RED] = color[GREEN] = color[BLUE] = gris;
+        
         return color;
     }
 }

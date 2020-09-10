@@ -4,6 +4,9 @@ import Canvas from "./helper/Canvas.js";
 import Negativo from "./filtros/Negativo.js";
 import BlancoNegro from "./filtros/BlancoNegro.js";
 import Binarizacion from "./filtros/Binarizacion.js";
+import Sepia from "./filtros/Sepia.js";
+import Brillo from "./filtros/Brillo.js";
+import Saturacion from "./filtros/Saturacion.js";
 
 document.addEventListener("DOMContentLoaded",()=>{
     let lapiz = Lapiz.getInstance();
@@ -13,6 +16,9 @@ document.addEventListener("DOMContentLoaded",()=>{
     let negativo = new Negativo();
     let blancoNegro = new BlancoNegro();
     let binarizacion = new Binarizacion();
+    let sepia = new Sepia();
+    let brillo = new Brillo();
+    let saturacion = new Saturacion();
     Canvas.updateCanvas();
     Canvas.lienzoBlanco();
 
@@ -39,6 +45,15 @@ document.addEventListener("DOMContentLoaded",()=>{
     
     let btnFiltroBinarizacion = document.querySelector("#js-btn-filtro-binarizacion");
     btnFiltroBinarizacion.addEventListener("click", ()=> cambiarFiltroActivo(binarizacion));
+    
+    let btnFiltroSepia = document.querySelector("#js-btn-filtro-sepia");
+    btnFiltroSepia.addEventListener("click", ()=> cambiarFiltroActivo(sepia));
+
+    let btnFiltroBrillo = document.querySelector("#js-btn-filtro-brillo");
+    btnFiltroBrillo.addEventListener("click", ()=> cambiarFiltroActivo(brillo));
+
+    let btnFiltroSaturacion = document.querySelector("#js-btn-filtro-saturacion");
+    btnFiltroSaturacion.addEventListener("click", ()=> cambiarFiltroActivo(saturacion));
 
     let inputIntensidad = document.querySelector("#js-intensidad");
     inputIntensidad.addEventListener("change", updateFiltro);
