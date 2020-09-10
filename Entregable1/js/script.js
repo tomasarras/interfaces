@@ -7,8 +7,10 @@ import Binarizacion from "./filtros/Binarizacion.js";
 import Sepia from "./filtros/Sepia.js";
 import Brillo from "./filtros/Brillo.js";
 import Saturacion from "./filtros/Saturacion.js";
+import Blur from "./filtros/Blur.js";
 
 document.addEventListener("DOMContentLoaded",()=>{
+    "use strict";
     let lapiz = Lapiz.getInstance();
     let goma = Goma.getInstance();
     let herramientaActiva = null;
@@ -19,6 +21,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     let sepia = new Sepia();
     let brillo = new Brillo();
     let saturacion = new Saturacion();
+    let blur = new Blur();
     Canvas.updateCanvas();
     Canvas.lienzoBlanco();
 
@@ -34,8 +37,8 @@ document.addEventListener("DOMContentLoaded",()=>{
     let btnLienzoBlanco = document.querySelector("#js-btn-lienzo-blanco");
     btnLienzoBlanco.addEventListener("click", ()=> Canvas.lienzoBlanco());
 
-    let btnCargarImagen = document.querySelector("#js-cargar-imagen");
-    btnCargarImagen.addEventListener("change", cargarImagen);
+    let inputCargarImagen = document.querySelector("#js-cargar-imagen");
+    inputCargarImagen.addEventListener("change", cargarImagen);
 
     let btnFiltroNegativo = document.querySelector("#js-btn-filtro-negativo");
     btnFiltroNegativo.addEventListener("click", ()=> cambiarFiltroActivo(negativo));
@@ -57,6 +60,9 @@ document.addEventListener("DOMContentLoaded",()=>{
 
     let inputIntensidad = document.querySelector("#js-intensidad");
     inputIntensidad.addEventListener("change", updateFiltro);
+    
+    let btnFiltroBlur = document.querySelector("#js-btn-filtro-blur");
+    btnFiltroBlur.addEventListener("click", ()=> cambiarFiltroActivo(blur));
 
     function updateFiltro() {
         if (filtroActivo != null) {
@@ -70,8 +76,12 @@ document.addEventListener("DOMContentLoaded",()=>{
     }
 
     function cargarImagen(event) {
+        Canvas.lienzoBlanco();
         let file = event.target.files[0];
         let reader = new FileReader();
+        let inputCargarImagen = document.querySelector("#js-cargar-imagen");
+        inputCargarImagen.value = "";
+
         reader.readAsDataURL(file);
         reader.onload = readerEvent => {
             let content = readerEvent.target.result;
@@ -81,7 +91,6 @@ document.addEventListener("DOMContentLoaded",()=>{
                 let ctx = Canvas.getCtx();
                 ctx.drawImage(image,0,0,Canvas.getWidth(),Canvas.getHeight());
             }
-
         }
     }
 

@@ -38,7 +38,8 @@ class Canvas {
     }
 
     static setPixel(imageData,coordenadas,color) {
-        if (coordenadas[X] < this.width && coordenadas[X] >= 0) {
+        if (coordenadas[X] < this.width && coordenadas[X] >= 0
+            && coordenadas[Y] < this.height && coordenadas[Y] >= 0) {
             let index = (coordenadas[X] + coordenadas[Y] * imageData.width) * 4;
             imageData.data[index+RED] = color[RED];
             imageData.data[index+GREEN] = color[GREEN];
@@ -58,6 +59,7 @@ class Canvas {
     }
 
     static getPixelColor(coordenadas,imageData) {
+        
         let index = (coordenadas[X] + coordenadas[Y] * imageData.width) * 4;
         let color = new Array();
         color[RED] = imageData.data[index+RED];

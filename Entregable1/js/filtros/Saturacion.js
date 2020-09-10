@@ -3,11 +3,10 @@ import { RED,GREEN,BLUE, COLOR_BLANCO, COLOR_NEGRO } from "../helper/constantes.
 import Filtro from "../filtros/Filtro.js";
 
 class Saturacion extends Filtro {
-    iteracion(coordenadaActual,imageData,intensidad) {
-        let color = Canvas.getPixelColor(coordenadaActual,imageData);
+    procesarColor(coordenadaActual,imageData,color) {
         let hsl = Filtro.rgbToHsl(color[RED],color[GREEN],color[BLUE]);
         let saturacion = hsl[1];
-        saturacion = saturacion * (intensidad / 100);
+        saturacion = saturacion * (this.intensidad / 100);
         let rgb = Filtro.hslToRgb(hsl[0],saturacion,hsl[2]);
         color[RED] = rgb[RED];
         color[GREEN] = rgb[GREEN];

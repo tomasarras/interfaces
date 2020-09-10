@@ -4,8 +4,7 @@ import Filtro from "../filtros/Filtro.js";
 
 class BlancoNegro extends Filtro {
 
-    iteracion(coordenadaActual,imageData,intensidad) {
-        let color = Canvas.getPixelColor(coordenadaActual,imageData);
+    procesarColor(coordenadaActual,imageData,color) {
         let gris = (color[RED] + color[GREEN] + color[BLUE]) / 3;
         color[RED] = color[GREEN] = color[BLUE] = gris;
         

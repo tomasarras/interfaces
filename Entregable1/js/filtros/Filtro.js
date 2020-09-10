@@ -3,6 +3,7 @@ import Canvas from "../helper/Canvas.js";
 
 class Filtro {
     intensidad;
+    imageDataOriginal;
 
     constructor() {
         let inputIntensidad = document.querySelector("#js-intensidad");
@@ -19,10 +20,10 @@ class Filtro {
         let inputIntensidad = document.querySelector("#js-intensidad");
         this.intensidad = parseInt(inputIntensidad.value);
         this.imageDataOriginal = Canvas.getImageData();
-        this.aplicar(this.iteracion);
+        this.aplicar();
     }
 
-    aplicar(callbackAlgoritmo) {
+    aplicar() {
         let coordenadas = new Array();
         coordenadas[X] = 0;
         coordenadas[Y] = 0;
@@ -32,7 +33,8 @@ class Filtro {
         while (coordenadas[X] < imageData.width) {
             coordenadas[Y] = 0;
             while (coordenadas[Y] < imageData.height) {
-                color = callbackAlgoritmo(coordenadas,imageData,this.intensidad);
+                color = Canvas.getPixelColor(coordenadas,imageData);
+                color = this.procesarColor(coordenadas,imageData,color);
                 Canvas.setPixel(imageData,coordenadas,color);
                 coordenadas[Y]++;
             }
@@ -40,6 +42,8 @@ class Filtro {
         }
         Canvas.putImageData(imageData);
     }
+
+    procesarColor(coordenadas,imageData) { }
 
     static rgbToHsl(red, green, blue) {
         let h,s,l;

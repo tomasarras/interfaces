@@ -4,8 +4,7 @@ import Filtro from "../filtros/Filtro.js";
 
 class Negativo extends Filtro {
     
-    iteracion(coordenadaActual,imageData,intensidad) {
-        let color = Canvas.getPixelColor(coordenadaActual,imageData);
+    procesarColor(coordenadaActual,imageData,color) {
         color[RED] = 255 - color[RED];
         color[GREEN] = 255 - color[GREEN];
         color[BLUE] = 255 - color[BLUE];
