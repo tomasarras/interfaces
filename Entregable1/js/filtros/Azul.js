@@ -6,6 +6,10 @@ class Azul extends Filtro {
         color[BLUE] = 255;
         return color;
     }
+
+    setIntensidad() {
+        this.tieneIntensidad = false;
+    }
 }
 
 export default Azul;

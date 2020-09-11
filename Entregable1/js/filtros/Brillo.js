@@ -9,6 +9,10 @@ class Brillo extends Filtro {
 
         return color;
     }
+
+    setIntensidad() {
+        this.tieneIntensidad = true;
+    }
 }
 
 export default Brillo;

@@ -9,6 +9,10 @@ class Negativo extends Filtro {
         color[BLUE] = 255 - color[BLUE];
         return color;
     }
+
+    setIntensidad() {
+        this.tieneIntensidad = false;
+    }
 }
 
 export default Negativo;

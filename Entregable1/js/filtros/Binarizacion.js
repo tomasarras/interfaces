@@ -13,6 +13,10 @@ class Binarizacion extends Filtro {
 
         return color;
     }
+
+    setIntensidad() {
+        this.tieneIntensidad = true;
+    }
 }
 
 export default Binarizacion;

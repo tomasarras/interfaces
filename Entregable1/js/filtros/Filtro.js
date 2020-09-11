@@ -4,6 +4,7 @@ import Canvas from "../helper/Canvas.js";
 class Filtro {
     intensidad;
     imageDataOriginal;
+    tieneIntensidad;
 
     constructor() {
         let inputIntensidad = document.querySelector("#js-intensidad");
@@ -18,7 +19,16 @@ class Filtro {
 
     aplicarFiltro() {
         let inputIntensidad = document.querySelector("#js-intensidad");
+        console.log(this);
+        this.setIntensidad();
         this.intensidad = parseInt(inputIntensidad.value);
+        if (this.tieneIntensidad) {
+            inputIntensidad.enabled = true;
+            inputIntensidad.disabled = false;
+        } else {
+            inputIntensidad.disabled = true;
+            inputIntensidad.enabled = false;
+        }
         this.imageDataOriginal = Canvas.getImageData();
         this.aplicar();
     }
@@ -43,7 +53,9 @@ class Filtro {
         Canvas.putImageData(imageData);
     }
 
-    procesarColor(coordenadas,imageData) { }
+    setIntensidad() { }
+
+    procesarColor(coordenadas,imageData,color) { }
 
     rgbToHsl(red, green, blue) {
         let h,s,l;

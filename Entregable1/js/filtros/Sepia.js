@@ -9,6 +9,10 @@ class Sepia extends Filtro {
 
         return color;
     }
+
+    setIntensidad() {
+        this.tieneIntensidad = false;
+    }
 }
 
 export default Sepia;

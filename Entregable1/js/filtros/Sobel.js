@@ -54,5 +54,9 @@ class Sobel extends Filtro {
         }
         Canvas.putImageData(imageData);
     }
+
+    setIntensidad() {
+        this.tieneIntensidad = false;
+    }
 }
 export default Sobel;

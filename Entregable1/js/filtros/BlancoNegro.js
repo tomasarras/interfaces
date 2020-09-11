@@ -9,6 +9,10 @@ class BlancoNegro extends Filtro {
         
         return color;
     }
+
+    setIntensidad() {
+        this.tieneIntensidad = false;
+    }
 }
 
 export default BlancoNegro;
