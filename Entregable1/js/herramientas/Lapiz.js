@@ -4,36 +4,32 @@ import Canvas from "../helper/Canvas.js";
 
 class Lapiz extends Herramienta {
     ultimasCoordenadas;
-    static instance = new Lapiz();
-
-    static getInstance() {
-        return this.instance;
-    }
+    mouseDownBind;
     
     activar() {
+        this.mouseDownBind = this.mouseDown.bind(this);
         this.ultimasCoordenadas = new Array();
-        Canvas.getCanvas().addEventListener("mousedown", this.mouseDown);
+        Canvas.getCanvas().addEventListener("mousedown", this.mouseDownBind);
+        let inputGrosor = document.querySelector("#js-grosor");
+        inputGrosor.disabled = true;
+        inputGrosor.enabled = false;
     }
 
     desactivar() {
-        Canvas.getCanvas().removeEventListener("mousedown", this.mouseDown);
-    }
-
-    getUltimasCoordenadas() {
-        return this.ultimasCoordenadas;
+        Canvas.getCanvas().removeEventListener("mousedown", this.mouseDownBind);
     }
 
     mouseDown(event){
         let canvas = Canvas.getCanvas();
         let ctx = Canvas.getCtx();
-        let lapiz = Lapiz.getInstance();
-        lapiz.ultimasCoordenadas[X] = event.layerX;
-        lapiz.ultimasCoordenadas[Y] = event.layerY;
+        this.ultimasCoordenadas[X] = event.layerX;
+        this.ultimasCoordenadas[Y] = event.layerY;
         let imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
-        Canvas.setPixel(imageData,lapiz.ultimasCoordenadas,lapiz.color);
+        Canvas.setPixel(imageData,this.ultimasCoordenadas,this.color);
         ctx.putImageData(imageData,0,0);
 
-        let handlerMove = (event) => lapiz.mouseMove(event);
+        let handlerMove = (event) => this.algoritmo(event);
+        handlerMove = handlerMove.bind(this)
 
         canvas.addEventListener("mousemove", handlerMove);
         canvas.addEventListener("mouseup", ()=>{
@@ -41,31 +37,8 @@ class Lapiz extends Herramienta {
         });
     }
 
-    mouseMove(event){
-        let imageData = Canvas.getImageData();
-        let lapiz = Lapiz.getInstance();
-        let uCoordenadas = lapiz.getUltimasCoordenadas();
-        let nuevasCoordenadas = new Array();
-        nuevasCoordenadas[X] = event.layerX;
-        nuevasCoordenadas[Y] = event.layerY;
-        
-        Canvas.setPixel(imageData,uCoordenadas,lapiz.color);
-        while (nuevasCoordenadas[X] != uCoordenadas[X] || nuevasCoordenadas[Y] != uCoordenadas[Y]) {
-            if (nuevasCoordenadas[X] > uCoordenadas[X]) {
-                uCoordenadas[X]++;
-            } else if (nuevasCoordenadas[X] < uCoordenadas[X]) {
-                uCoordenadas[X]--;
-            }
-            
-            if (nuevasCoordenadas[Y] > uCoordenadas[Y]) {
-                uCoordenadas[Y]++;
-            } else if (nuevasCoordenadas[Y] < uCoordenadas[Y]) {
-                uCoordenadas[Y]--;
-            }
-
-            Canvas.setPixel(imageData,uCoordenadas,lapiz.color);
-        }
-        Canvas.putImageData(imageData);
+    dibujar(imageData,coordenadas,color) {
+        Canvas.setPixel(imageData,coordenadas,color);
     }
 }
 

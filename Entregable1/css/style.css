@@ -1,5 +1,88 @@
+.barra-herramientas {
+    width: 100%;
+    overflow: auto;
+    padding: 10px 0;
+}
+
+.filtro-slider {
+    display: flex;
+}
+
+.viewport {
+    height: 100vh;
+}
+
+.ancho {
+    width: 100%;
+}
+
+.barra-herramientas .botones div {
+    display: flex;
+}
+
+.margin-right {
+    margin-right: 1%;
+}
+
+.barra-herramientas .botones .btn {
+    margin-bottom: 3px;
+}
+
+.input-barra {
+    width: 40%;
+    margin-top: 1%;
+}
+
+.btn-herramienta {
+    font-size: 0.8em;
+}
+
+.btn-filtro {
+    width: 12%;
+}
+
+.barra-herramientas .botones {
+    width: 35%;
+}
+
+.herramientas {
+    width: 65%;
+    padding-right: 0;
+    margin: 0;
+}
+
+.herramientas div {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.herramientas .flex-end {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .div-canvas {
     border: 1px solid black;
+    height: 70%;
+    width: 100%;
+}
+
+.filtros {
+    padding: 1% 0 0 0;
+}
+
+.filtro-slider form {
+    width: 100%;
+}
+
+.filtro {
+    cursor: pointer;
+}
+
+#btn-filtros {
+    margin: 1% 0 0 2%;
+    height: 100%;
 }
 
 .oculto {

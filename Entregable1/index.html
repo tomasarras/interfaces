@@ -11,45 +11,78 @@
     <script type="module" src="js/script.js"></script>
 </head>
 <body>
-    <div class="div-canvas">
-        <canvas id="js-canvas" width="1000" height="512"></canvas>
-    </div>
-    <div class="herramientas">
-        <button><i class="fas fa-pencil-alt" id="js-btn-lapiz"></i></button>
-        <button><i class="fas fa-eraser" id="js-btn-goma"></i></button>
-    </div>
-
-    <form>
-        <div class="form-group">
-          <label for="formControlRange">Grosor de la herramienta</label>
-          <input type="range" class="form-control-range" id="js-grosor">
-        </div>
-    </form>
     
-    <form>
-        <div class="form-group">
-          <label for="formControlRange">Intensidad del filtro</label>
-          <input type="range" class="form-control-range" id="js-intensidad" min="0" max="255">
-          <button>Aplicar filtro</button>
+    <div class="container">
+        <div class="viewport">
+
+            <div class="barra-herramientas row">
+                <div class="botones col-4">
+                    <div>
+                        <button class="btn btn-primary ancho margin-right" id="js-btn-lienzo-blanco">Lienzo en blanco</button>
+                        <label for="js-cargar-imagen" class="btn btn-primary ancho">Cargar imagen</label>
+                        <input type="file" id="js-cargar-imagen" class="oculto" accept="image/*">
+                    </div>
+                    <button class="btn btn-primary ancho js-habilitar"id="js-btn-descargar-canvas" disabled>
+                        Descargar <i class="fas fa-download"></i>
+                    </button>
+                </div>
+
+                <div class="herramientas col-8">
+                    <div>
+                        <button class="btn-primary btn btn-herramienta margin-right js-habilitar" id="js-btn-lapiz" disabled>
+                            <i class="fas fa-pencil-alt"></i>
+                        </button>
+                        <button class="btn btn-primary btn-herramienta js-habilitar margin-right" id="js-btn-goma" disabled>
+                            <i class="fas fa-eraser"></i>
+                        </button>
+                    </div>
+                    
+                    <div>
+                        <form class="input-barra">
+                            <div class="form-group">
+                                <label for="formControlRange">Grosor: </label>
+                                <input type="range" class="form-control-range" id="js-grosor" disabled>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="div-canvas">
+                <canvas class="canvas" id="js-canvas"></canvas>
+            </div>
+            
+            <div class="filtros">
+                <div class="filtro-slider">
+                    <form>
+                        <div class="form-group">
+                            <label for="formControlRange">Intensidad del filtro</label>
+                            <input type="range" class="form-control-range" id="js-intensidad" min="0" max="255" disabled>
+                        </div>
+                    </form>
+
+                    <div class="btn-group dropup"  id="btn-filtros">
+                        <button type="button" class="btn btn-primary dropdown-toggle js-habilitar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" disabled>
+                        Filtros
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item filtro" id="js-filtro-negativo">Negativo</a>
+                            <a class="dropdown-item filtro" id="js-filtro-blanco-negro">Blanco y negro</a>
+                            <a class="dropdown-item filtro" id="js-filtro-binarizacion">Binarizacion</a>
+                            <a class="dropdown-item filtro" id="js-filtro-sepia">Sepia</a>
+                            <a class="dropdown-item filtro" id="js-filtro-brillo">Brillo</a>
+                            <a class="dropdown-item filtro" id="js-filtro-saturacion">Saturacion</a>
+                            <a class="dropdown-item filtro" id="js-filtro-blur">Blur</a>
+                            <a class="dropdown-item filtro" id="js-filtro-sobel">Deteccion de bordes</a>
+                            <a class="dropdown-item filtro" id="js-filtro-azul">Azul</a>
+                            <a class="dropdown-item filtro" id="js-filtro-luminosidad">Luminosidad</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </form>
-
-    <button class="btn btn-primary" id="js-btn-lienzo-blanco">Lienzo en blanco</button>
-    <label for="js-cargar-imagen" class="btn btn-primary">Select Image</label>
-    <input type="file" id="js-cargar-imagen" class="oculto" accept="image/*">
-
-    <button id="js-btn-filtro-negativo">Negativo</button>
-    <button id="js-btn-filtro-blanco-negro">Blanco y negro</button>
-    <button id="js-btn-filtro-binarizacion">Binarizacion</button>
-    <button id="js-btn-filtro-sepia">Sepia</button>
-    <button id="js-btn-filtro-brillo">Brillo</button>
-    <button id="js-btn-filtro-saturacion">Saturacion</button>
-    <button id="js-btn-filtro-blur">Blur</button>
-    <button id="js-btn-filtro-sobel">Deteccion de bordes</button>
-    <button id="js-btn-filtro-azul">Azul</button>
-    <button id="js-btn-descargar-canvas">Descargar</button>
-    
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    </div>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>

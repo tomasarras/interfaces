@@ -10,11 +10,12 @@ import Saturacion from "./filtros/Saturacion.js";
 import Blur from "./filtros/Blur.js";
 import Sobel from "./filtros/Sobel.js";
 import Azul from "./filtros/Azul.js";
+import Luminosidad from "./filtros/Luminosidad.js";
 
 document.addEventListener("DOMContentLoaded",()=>{
     "use strict";
-    let lapiz = Lapiz.getInstance();
-    let goma = Goma.getInstance();
+    let lapiz = new Lapiz();
+    let goma = new Goma();
     let herramientaActiva = null;
     let filtroActivo = null;
     let negativo = new Negativo();
@@ -26,9 +27,8 @@ document.addEventListener("DOMContentLoaded",()=>{
     let blur = new Blur();
     let sobel = new Sobel();
     let azul = new Azul();
+    let luminosidad = new Luminosidad();
     Canvas.updateCanvas();
-    Canvas.lienzoBlanco();
-
     let btnLapiz = document.querySelector("#js-btn-lapiz");
     btnLapiz.addEventListener("click", ()=> { cambiarHerramienta(lapiz) });
 
@@ -44,35 +44,38 @@ document.addEventListener("DOMContentLoaded",()=>{
     let inputCargarImagen = document.querySelector("#js-cargar-imagen");
     inputCargarImagen.addEventListener("change", cargarImagen);
 
-    let btnFiltroNegativo = document.querySelector("#js-btn-filtro-negativo");
+    let btnFiltroNegativo = document.querySelector("#js-filtro-negativo");
     btnFiltroNegativo.addEventListener("click", ()=> cambiarFiltroActivo(negativo));
     
-    let btnFiltroBlancoNegro = document.querySelector("#js-btn-filtro-blanco-negro");
+    let btnFiltroBlancoNegro = document.querySelector("#js-filtro-blanco-negro");
     btnFiltroBlancoNegro.addEventListener("click", ()=> cambiarFiltroActivo(blancoNegro));
     
-    let btnFiltroBinarizacion = document.querySelector("#js-btn-filtro-binarizacion");
+    let btnFiltroBinarizacion = document.querySelector("#js-filtro-binarizacion");
     btnFiltroBinarizacion.addEventListener("click", ()=> cambiarFiltroActivo(binarizacion));
     
-    let btnFiltroSepia = document.querySelector("#js-btn-filtro-sepia");
+    let btnFiltroSepia = document.querySelector("#js-filtro-sepia");
     btnFiltroSepia.addEventListener("click", ()=> cambiarFiltroActivo(sepia));
 
-    let btnFiltroBrillo = document.querySelector("#js-btn-filtro-brillo");
+    let btnFiltroBrillo = document.querySelector("#js-filtro-brillo");
     btnFiltroBrillo.addEventListener("click", ()=> cambiarFiltroActivo(brillo));
 
-    let btnFiltroSaturacion = document.querySelector("#js-btn-filtro-saturacion");
+    let btnFiltroSaturacion = document.querySelector("#js-filtro-saturacion");
     btnFiltroSaturacion.addEventListener("click", ()=> cambiarFiltroActivo(saturacion));
 
     let inputIntensidad = document.querySelector("#js-intensidad");
     inputIntensidad.addEventListener("change", updateFiltro);
     
-    let btnFiltroBlur = document.querySelector("#js-btn-filtro-blur");
+    let btnFiltroBlur = document.querySelector("#js-filtro-blur");
     btnFiltroBlur.addEventListener("click", ()=> cambiarFiltroActivo(blur));
 
-    let btnFiltroSobel = document.querySelector("#js-btn-filtro-sobel");
+    let btnFiltroSobel = document.querySelector("#js-filtro-sobel");
     btnFiltroSobel.addEventListener("click", ()=> cambiarFiltroActivo(sobel));
 
-    let btnFiltroAzul = document.querySelector("#js-btn-filtro-azul");
+    let btnFiltroAzul = document.querySelector("#js-filtro-azul");
     btnFiltroAzul.addEventListener("click", ()=> cambiarFiltroActivo(azul));
+
+    let btnFiltroLuminosidad = document.querySelector("#js-filtro-luminosidad");
+    btnFiltroLuminosidad.addEventListener("click", ()=> cambiarFiltroActivo(luminosidad));
     
     let btnDescargar = document.querySelector("#js-btn-descargar-canvas");
     btnDescargar.addEventListener("click", descargarCanvas);
@@ -110,8 +113,19 @@ document.addEventListener("DOMContentLoaded",()=>{
             let image = new Image();
             image.src = content;
             image.onload = ()=>{
+                let medida = "";
                 let ctx = Canvas.getCtx();
-                ctx.drawImage(image,0,0,Canvas.getWidth(),Canvas.getHeight());
+                let width;
+                let height;
+                width = image.width;
+                medida = "width:"+width+"px;";
+                height = image.height;
+                medida += "height:"+height+"px;";
+                let canvas = document.querySelector("#js-canvas");
+                let divCanvas = canvas.parentNode;
+                divCanvas.setAttribute("style",medida);
+                Canvas.updateCanvas();
+                ctx.drawImage(image,0,0,width,height);
             }
         }
     }

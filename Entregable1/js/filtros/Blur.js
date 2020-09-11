@@ -9,7 +9,7 @@ const INTENSIDAD_MUY_FUERTE = 4;
 class Blur extends Filtro {
     procesarColor(coordenada,imageData,color) {
         let cantidadPixeles = 0;
-        let tipoIntensidad = INTENSIDAD_MEDIA;
+        let tipoIntensidad = this.intensidad;
         let pixel;
         let sumatoriaRed = 0;
         let sumatoriaGreen = 0;
@@ -41,7 +41,8 @@ class Blur extends Filtro {
     }
 
     setIntensidad() {
-        this.tieneIntensidad = false;
+        this.intensidad = Math.round(this.intensidad / 100) +1;
+        this.tieneIntensidad = true;
     }
 }
 

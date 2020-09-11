@@ -5,9 +5,14 @@ class Canvas {
     static ctx;
     static width;
     static height;
+    static widthOriginal = Canvas.getWidthOriginal();
+    static heightOriginal = Canvas.getHeightOriginal();
 
     static updateCanvas() {
         this.canvas = document.querySelector("#js-canvas");
+        let divCanvas = this.canvas.parentNode;
+        this.canvas.width = divCanvas.offsetWidth;
+        this.canvas.height = divCanvas.offsetHeight;
         this.ctx = this.canvas.getContext("2d");
         this.width = this.canvas.width;
         this.height = this.canvas.height;
@@ -17,8 +22,28 @@ class Canvas {
         return this.width;
     }
 
+    static getWidthOriginal() {
+        if (this.widthOriginal != undefined) {
+            return this.widthOriginal;
+        } else {
+            this.canvas = document.querySelector("#js-canvas");
+            let divCanvas = this.canvas.parentNode;
+            return divCanvas.clientWidth;
+        }
+    }
+
     static getHeight() {
         return this.height;
+    }
+
+    static getHeightOriginal() {
+        if (this.heightOriginal != undefined) {
+            return this.heightOriginal;
+        } else {
+            this.canvas = document.querySelector("#js-canvas");
+            let divCanvas = this.canvas.parentNode;
+            return divCanvas.clientHeight;
+        }
     }
 
     static getCanvas() {
@@ -69,8 +94,20 @@ class Canvas {
     }
 
     static lienzoBlanco() {
-        this.ctx.fillStyle = COLOR_BLANCO_HEX;  
-        this.ctx.fillRect(0, 0, this.width, this.height);
+        let divCanvas = this.canvas.parentNode;
+        divCanvas.setAttribute("style","width:"+this.widthOriginal+";height:"+this.heightOriginal)
+        this.updateCanvas();
+        this.ctx.fillStyle = COLOR_BLANCO_HEX;
+        this.ctx.fillRect(0, 0, this.widthOriginal, this.heightOriginal);
+        Canvas.habilitarCanvas();
+    }
+
+    static habilitarCanvas() {
+        let btnsInhabilitados = document.querySelectorAll(".js-habilitar");
+        btnsInhabilitados.forEach(btn => {
+            btn.disabled = false;
+            btn.enabled = true;
+        });
     }
 }
 

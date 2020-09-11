@@ -14,14 +14,14 @@ class Filtro {
     update() {
         let inputIntensidad = document.querySelector("#js-intensidad");
         this.intensidad = parseInt(inputIntensidad.value);
+        this.setIntensidad();
         this.aplicar(this.iteracion);
     }
 
     aplicarFiltro() {
         let inputIntensidad = document.querySelector("#js-intensidad");
-        console.log(this);
-        this.setIntensidad();
         this.intensidad = parseInt(inputIntensidad.value);
+        this.setIntensidad();
         if (this.tieneIntensidad) {
             inputIntensidad.enabled = true;
             inputIntensidad.disabled = false;
