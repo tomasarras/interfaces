@@ -1,4 +1,3 @@
-import Canvas from "../helper/Canvas.js";
 import { RED,GREEN,BLUE } from "../helper/constantes.js";
 import Filtro from "../filtros/Filtro.js";
 

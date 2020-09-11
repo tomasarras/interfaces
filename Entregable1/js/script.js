@@ -8,6 +8,8 @@ import Sepia from "./filtros/Sepia.js";
 import Brillo from "./filtros/Brillo.js";
 import Saturacion from "./filtros/Saturacion.js";
 import Blur from "./filtros/Blur.js";
+import Sobel from "./filtros/Sobel.js";
+import Azul from "./filtros/Azul.js";
 
 document.addEventListener("DOMContentLoaded",()=>{
     "use strict";
@@ -22,6 +24,8 @@ document.addEventListener("DOMContentLoaded",()=>{
     let brillo = new Brillo();
     let saturacion = new Saturacion();
     let blur = new Blur();
+    let sobel = new Sobel();
+    let azul = new Azul();
     Canvas.updateCanvas();
     Canvas.lienzoBlanco();
 
@@ -63,6 +67,24 @@ document.addEventListener("DOMContentLoaded",()=>{
     
     let btnFiltroBlur = document.querySelector("#js-btn-filtro-blur");
     btnFiltroBlur.addEventListener("click", ()=> cambiarFiltroActivo(blur));
+
+    let btnFiltroSobel = document.querySelector("#js-btn-filtro-sobel");
+    btnFiltroSobel.addEventListener("click", ()=> cambiarFiltroActivo(sobel));
+
+    let btnFiltroAzul = document.querySelector("#js-btn-filtro-azul");
+    btnFiltroAzul.addEventListener("click", ()=> cambiarFiltroActivo(azul));
+    
+    let btnDescargar = document.querySelector("#js-btn-descargar-canvas");
+    btnDescargar.addEventListener("click", descargarCanvas);
+
+    function descargarCanvas() {
+        let canvas = Canvas.getCanvas();
+        let imageURI = canvas.toDataURL("image/jpg");
+        let link = document.createElement("a");
+        link.setAttribute("href", imageURI);
+        link.setAttribute("download", "imagen");
+        link.click();
+    };
 
     function updateFiltro() {
         if (filtroActivo != null) {

@@ -59,7 +59,6 @@ class Canvas {
     }
 
     static getPixelColor(coordenadas,imageData) {
-        
         let index = (coordenadas[X] + coordenadas[Y] * imageData.width) * 4;
         let color = new Array();
         color[RED] = imageData.data[index+RED];

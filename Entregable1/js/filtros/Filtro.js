@@ -1,4 +1,4 @@
-import { COLOR_NEGRO, X, Y } from "../helper/constantes.js";
+import { X, Y } from "../helper/constantes.js";
 import Canvas from "../helper/Canvas.js";
 
 class Filtro {
@@ -45,7 +45,7 @@ class Filtro {
 
     procesarColor(coordenadas,imageData) { }
 
-    static rgbToHsl(red, green, blue) {
+    rgbToHsl(red, green, blue) {
         let h,s,l;
 
         red = red / 255;
@@ -84,7 +84,7 @@ class Filtro {
         return [h,s,l];
     }
 
-    static hslToRgb(h,s,l) {
+    hslToRgb(h,s,l) {
         let r,g,b,calculo1,calculo2,tRed,tGreen,tBlue;
         s = s / 100;
         l = l / 100;
