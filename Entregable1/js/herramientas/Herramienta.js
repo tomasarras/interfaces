@@ -6,6 +6,7 @@ class Herramienta {
     width;
     height;
     grosor;
+    imageData;
 
     constructor() {
         this.grosor = this.getGrosor();
@@ -17,12 +18,12 @@ class Herramienta {
     }
 
     algoritmo(event) {
-        let imageData = Canvas.getImageData();
+        this.imageData = Canvas.getImageData();
         let nuevasCoordenadas = new Array();
         nuevasCoordenadas[X] = event.layerX;
         nuevasCoordenadas[Y] = event.layerY;
         
-        this.dibujar(imageData,this.ultimasCoordenadas,this.color);
+        this.dibujar(this.imageData,this.ultimasCoordenadas,this.color);
         while (nuevasCoordenadas[X] != this.ultimasCoordenadas[X] || nuevasCoordenadas[Y] != this.ultimasCoordenadas[Y]) {
             if (nuevasCoordenadas[X] > this.ultimasCoordenadas[X]) {
                 this.ultimasCoordenadas[X]++;
@@ -36,9 +37,9 @@ class Herramienta {
                 this.ultimasCoordenadas[Y]--;
             }
 
-            this.dibujar(imageData,this.ultimasCoordenadas,this.color);
+            this.dibujar(this.imageData,this.ultimasCoordenadas,this.color);
         }
-        Canvas.putImageData(imageData);
+        Canvas.putImageData(this.imageData);
     }
 
     dibujar(imageData,coordenadas,color) { }

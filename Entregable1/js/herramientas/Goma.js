@@ -87,10 +87,16 @@ class Goma extends Herramienta {
         this.mostrarPuntero(event);
     }
     
-    mouseLeave() {
-        Canvas.putImageData(this.imageDataOld);
-        this.imageData = Canvas.getImageData();
-        this.imageDataOld = Canvas.getImageData();
+    mouseLeave(event) {
+        if (this.mantenerClick) {
+            this.algoritmo(event);
+        } else {
+            Canvas.putImageData(this.imageDataOld);
+        }
+        
+        //Canvas.putImageData(this.imageData);
+        /*this.imageData = Canvas.getImageData();
+        this.imageDataOld = Canvas.getImageData();*/
     }
 }
 
