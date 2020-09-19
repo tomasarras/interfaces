@@ -5,7 +5,10 @@ class Contenedor {
     coordenadas;
     ancho;
     alto;
-    static imagen = document.querySelector("#js-contenedor");
+    ficha;
+    fila;
+    columna;
+    static imagen;
 
     constructor(coordenadas,ancho,alto){ 
         this.coordenadas = new Array();
@@ -13,14 +16,71 @@ class Contenedor {
         this.coordenadas[Y] = coordenadas[Y];
         this.ancho = ancho;
         this.alto = alto;
+        Contenedor.imagen = new Image();
+        let img  = document.querySelector("#js-contenedor");
+        Contenedor.imagen.src = img.src;
+        this.ficha = null;
     }
 
     dibujar() {
-        let img = new Image();
-        img.src = Contenedor.imagen.src;
-        img.onload = () => {
-            CanvasHelper.agregarImagen(Contenedor.imagen,this.coordenadas,this.ancho,this.alto);
+        Contenedor.imagen.onload = this.reDibujar.bind(this);
+    }
+
+    reDibujar() {
+        CanvasHelper.agregarImagen(Contenedor.imagen,this.coordenadas,this.ancho,this.alto);
+    }
+
+    getCoordenadaX(){
+        return this.coordenadas[X];
+    }
+
+    getCoordenadaY(){
+        return this.coordenadas[Y];
+    }
+
+    getAncho() {
+        return this.ancho;
+    }
+
+    contieneFicha() {
+        return this.ficha != null;
+    }
+
+    setFicha(ficha) {
+        this.ficha = ficha;
+        let coordenadas = new Array();
+        coordenadas[X] = this.coordenadas[X] + (this.ancho / 2);
+        coordenadas[Y] = this.coordenadas[Y] + (this.alto / 2);
+        ficha.mover(coordenadas)
+    }
+
+    getFicha() {
+        return this.ficha;
+    }
+
+    comparar(contenedor) {
+        if (contenedor.contieneFicha() & this.contieneFicha()) {
+            let fichaContenedor = contenedor.getFicha();
+            return this.ficha.comparar(fichaContenedor);
+        } else {
+            return false;
         }
+    }
+
+    setFila(fila) {
+        this.fila = fila;
+    }
+
+    setColumna(columna) {
+        this.columna = columna;
+    }
+
+    getFila() {
+        return this.fila;
+    }
+
+    getColumna() {
+        return this.columna;
     }
 
 }

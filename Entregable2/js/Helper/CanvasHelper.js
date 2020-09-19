@@ -1,4 +1,4 @@
-import { X, Y } from "../constantes.js";
+import { X, Y, COLOR_BLANCO } from "../constantes.js";
 
 class CanvasHelper {
     static canvas;
@@ -34,6 +34,21 @@ class CanvasHelper {
 
     static getCanvas() {
         return this.canvas;
+    }
+
+    static getMousePosition(event) { 
+        let rect = this.canvas.getBoundingClientRect(); 
+        let x = event.clientX - rect.left; 
+        let y = event.clientY - rect.top;
+        let coordenadas = new Array();
+        coordenadas[X] = x;
+        coordenadas[Y] = y;
+        return coordenadas;
+    }
+
+    static limpiarCanvas() {
+        this.ctx.fillStyle = COLOR_BLANCO;
+        this.ctx.fillRect(0,0,this.width,this.height);
     }
 
 }
