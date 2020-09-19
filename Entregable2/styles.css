@@ -1,0 +1,12 @@
+.oculto {
+    display: none;
+}
+
+div > #canvas {
+    border: 1px solid black;
+    height: 99vh;
+}
+
+#canvas {
+    width: 100%;
+}
