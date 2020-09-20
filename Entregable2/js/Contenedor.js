@@ -1,5 +1,6 @@
 import { X, Y } from "./constantes.js";
 import CanvasHelper from "./Helper/CanvasHelper.js";
+import Tablero from "./Tablero.js";
 
 class Contenedor {
     coordenadas;
@@ -49,9 +50,18 @@ class Contenedor {
     setFicha(ficha) {
         this.ficha = ficha;
         let coordenadas = new Array();
-        coordenadas[X] = this.coordenadas[X] + (this.ancho / 2);
-        coordenadas[Y] = this.coordenadas[Y] + (this.alto / 2);
-        ficha.mover(coordenadas)
+        coordenadas[X] = this.coordenadas[X] + (this.ancho / 2) +1;
+        coordenadas[Y] = this.coordenadas[Y] + (this.alto / 2) +1;
+        let intensidadAnimacion = 30;
+        let orden = ()=> {
+            let tablero = Tablero.getInstance();
+            tablero.actualizarFondoMadera();
+            tablero.actualizarFichas();
+            tablero.actualizarTablero();
+            tablero.mostrarTextoJugadores();
+        }
+
+        ficha.animar(coordenadas,intensidadAnimacion,orden);
     }
 
     getFicha() {

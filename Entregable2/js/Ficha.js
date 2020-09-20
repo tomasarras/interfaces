@@ -1,5 +1,6 @@
-import { X,Y,AZUL,ROJA } from "./constantes.js";
+import { X,Y,VERDE,ROJA } from "./constantes.js";
 import CanvasHelper from "./Helper/CanvasHelper.js";
+import Tablero from "./Tablero.js";
 
 class Ficha {
     coordenadas;
@@ -44,6 +45,14 @@ class Ficha {
         this.img.onload = this.reDibujar.bind(this);
     }
 
+    calcularOffset(e) {
+        let coordenadasClick = CanvasHelper.getMousePosition(e);
+        let coordenadas = new Array();
+        coordenadas[X] = coordenadasClick[X] - this.coordenadas[X];
+        coordenadas[Y] = coordenadasClick[Y] - this.coordenadas[Y];
+        return coordenadas;
+    }
+
     isClickeada(coordenadas) {
         let coincideX = (coordenadas[X] < this.coordenadas[X] + this.radio) &
                     (coordenadas[X] > this.coordenadas[X] - this.radio);
@@ -57,6 +66,45 @@ class Ficha {
     mover(coordenadas) {
         this.coordenadas[X] = coordenadas[X];
         this.coordenadas[Y] = coordenadas[Y];
+    }
+
+    animar(coordenadas,intensidad,orden) {
+        let xFijo = false;
+        let yFijo = false;
+        if (this.coordenadas[Y] < coordenadas[Y]) {
+            this.coordenadas[Y] = this.coordenadas[Y] + intensidad;
+            if (this.coordenadas[Y] >= coordenadas[Y]) {
+                this.coordenadas[Y] = coordenadas[Y];
+            }
+        } else if (this.coordenadas[Y] > coordenadas[Y]) {
+            this.coordenadas[Y] = this.coordenadas[Y] - intensidad;
+            if (this.coordenadas[Y] <= coordenadas[Y]) {
+                this.coordenadas[Y] = coordenadas[Y];
+            }
+        } else {
+            yFijo = true;
+        }
+
+        if (this.coordenadas[X] < coordenadas[X]) {
+            this.coordenadas[X] = this.coordenadas[X] + intensidad;
+            if (this.coordenadas[X] >= coordenadas[X]) {
+                this.coordenadas[X] = coordenadas[X];
+            }
+        } else if (this.coordenadas[X] > coordenadas[X]) {
+            this.coordenadas[X] = this.coordenadas[X] - intensidad;
+            if (this.coordenadas[X] <= coordenadas[X]) {
+                this.coordenadas[X] = coordenadas[X];
+            }
+        } else {
+            xFijo = true;
+        }
+
+        if (!(xFijo & yFijo)) {
+            CanvasHelper.limpiarCanvas();
+            orden();
+            let handler = ()=> this.animar(coordenadas,intensidad,orden);
+            setTimeout(handler.bind(this), 10);
+        }
     }
 
     reDibujar() {
@@ -92,7 +140,7 @@ class Ficha {
     }
 
     comparar(ficha) {
-        if ( (this.color == AZUL & ficha.getColor() == AZUL) ||
+        if ( (this.color == VERDE & ficha.getColor() == VERDE) ||
               (this.color == ROJA & ficha.getColor() == ROJA)) {
             return true;
         } else {
@@ -102,6 +150,30 @@ class Ficha {
 
     getColor() {
         return this.color;
+    }
+
+    setGanadora(imagen) {
+        this.img = new Image();
+        this.img.src = imagen.src;
+
+        let cargarImg = ()=> {
+            let ctx = CanvasHelper.getCtx();
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(this.coordenadas[X], this.coordenadas[Y], this.radio, 0, Math.PI * 2, true);
+            ctx.closePath();
+            ctx.clip();
+            
+            ctx.drawImage(this.img, this.coordenadas[X] - this.radio, this.coordenadas[Y] - this.radio, this.radio*2, this.radio*2);
+
+            ctx.beginPath();
+            ctx.arc(this.coordenadas[X] - this.radio, this.coordenadas[Y] - this.radio, this.radio, 0, Math.PI * 2, true);
+            ctx.clip();
+            ctx.closePath();
+            ctx.restore();
+        }
+
+        this.img.onload = cargarImg.bind(this);
     }
 }
 

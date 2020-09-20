@@ -4,17 +4,23 @@ import CanvasHelper from "./Helper/CanvasHelper.js";
 import Tablero from "./Tablero.js";
 
 document.addEventListener("DOMContentLoaded",()=>{
-    let filas = 6;
-    let columnas = 7;
-    CanvasHelper.iniciarCanvas();
+    let selectColumnas = document.querySelector("#columnas-tablero");
+    selectColumnas.addEventListener("change",iniciarTablero);
 
-    let tablero = new Tablero(filas,columnas);
-    tablero.iniciarTablero();
+    let selectFilas = document.querySelector("#filas-tablero");
+    selectFilas.addEventListener("change",iniciarTablero);
 
-    let radio = 38;
-    let imgFicha2 = document.querySelector("#js-ficha-2");
+    let btnReiniciar = document.querySelector("#btn-reiniciar");
+    btnReiniciar.addEventListener("click",iniciarTablero);
+    
+    iniciarTablero();
 
-    //let ficha = new Ficha(radio,imgFicha2,0,[800,600]);
-    //ficha.dibujar();
-
+    function iniciarTablero() {
+        let columnas = parseInt(selectColumnas.value);
+        let filas = parseInt(selectFilas.value);
+        CanvasHelper.iniciarCanvas();
+        let tablero = Tablero.getInstance();
+        tablero.crear(filas,columnas);
+        tablero.iniciarTablero()
+    }
 });

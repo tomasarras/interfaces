@@ -1,5 +1,5 @@
 import Contenedor from "./Contenedor.js";
-import { X,Y, AZUL,ROJA,RADIO_FICHAS,ANCHO_CONTENEDORES,ALTO_CONTENEDORES } from "./constantes.js";
+import { X,Y, VERDE,ROJA,RADIO_FICHAS,ANCHO_CONTENEDORES,ALTO_CONTENEDORES } from "./constantes.js";
 import CanvasHelper from "./Helper/CanvasHelper.js";
 import Ficha from "./Ficha.js";
 
@@ -12,11 +12,17 @@ class Tablero {
     mouseMove;
     mouseUp;
     fichaSeleccionada;
+    offsetFicha;
+    height;
+    width;
     turno;
     inicioTableroX;
     finTableroX;
+    ganador;
+    imgFondoMadera;
+    static instance = new Tablero();
 
-    constructor(filas,columnas) {
+    crear(filas,columnas) {
         this.filas = filas;
         this.columnas = columnas;
         this.contenedores = new Array();
@@ -25,33 +31,65 @@ class Tablero {
         this.mouseMove = this.moverFicha.bind(this);
         this.mouseUp = this.deseleccionarFicha.bind(this);
         this.fichaSeleccionada = null;
+        this.offsetFicha = null;
         this.turno = null;
+        this.inicioTableroX = null;
+        this.finTableroX = null;
+        this.ganador = null;
+        let fondoMadera = document.querySelector("#js-fondo-tablero");
+        this.imgFondoMadera = new Image();
+        this.imgFondoMadera.src = fondoMadera.src;
+        this.height = ALTO_CONTENEDORES * this.filas;
+        this.width = ANCHO_CONTENEDORES * this.columnas;
+    }
+
+    static getInstance() {
+        return this.instance;
     }
 
     iniciarTablero() {
         this.crearTablero();
         this.crearFichas();
         this.asignarEventos();
+        this.mostrarTextoJugadores();
+    }
+
+    mostrarTextoJugadores() {
+        let ctx = CanvasHelper.getCtx();
+        ctx.font = "30px Arial";
+        ctx.fillStyle = "black";
+
+        if (this.ganador == null) {
+            ctx.fillText("Jugador 1", 10, 50);
+            ctx.fillText("Jugador 2", CanvasHelper.getWidth() -150, 50);
+        } else {
+            if (this.ganador == VERDE) {
+                ctx.fillText("Jugador 1 GANADOR!", 10, 50);
+                ctx.fillText("Jugador 2", CanvasHelper.getWidth() -150, 50);
+            } else {
+                ctx.fillText("Jugador 1", 10, 50);
+                ctx.fillText("Jugador 2 GANADOR!", CanvasHelper.getWidth() -320, 50);
+            }
+        }
     }
 
     crearTablero() {
-        let anchoContenedor = ANCHO_CONTENEDORES;
-        let altoContenedor = ALTO_CONTENEDORES;
         let coordenadas = new Array();
         let contenedor;
-        let tableroHeight = altoContenedor * this.filas;
-        let tableroWidth = anchoContenedor * this.columnas;
-        let desplazamientoX = (CanvasHelper.getWidth() - tableroWidth) / 2;
-        let desplazamientoY = CanvasHelper.getHeight() - tableroHeight;
+        let desplazamientoX = (CanvasHelper.getWidth() - this.width) / 2;
+        let desplazamientoY = CanvasHelper.getHeight() - this.height;
         this.inicioTableroX = desplazamientoX;
-        this.finTableroX = tableroWidth + desplazamientoX;
+        this.finTableroX = this.width + desplazamientoX;
+        this.inicioTableroY = CanvasHelper.getHeight() - this.height;
+
+        this.mostrarFondoMadera();
 
         for (let fila = 0; fila < this.filas; fila++) {
             this.contenedores[fila] = new Array();
             for (let columna = 0; columna < this.columnas; columna++) {
-                coordenadas[X] = (columna * anchoContenedor) + desplazamientoX;
-                coordenadas[Y] = (fila * altoContenedor) + desplazamientoY;
-                contenedor = new Contenedor(coordenadas,anchoContenedor,altoContenedor);
+                coordenadas[X] = (columna * ANCHO_CONTENEDORES) + desplazamientoX;
+                coordenadas[Y] = (fila * ALTO_CONTENEDORES) + desplazamientoY;
+                contenedor = new Contenedor(coordenadas,ANCHO_CONTENEDORES,ALTO_CONTENEDORES);
                 contenedor.setFila(fila);
                 contenedor.setColumna(columna);
                 this.contenedores[fila][columna] = contenedor;
@@ -69,24 +107,40 @@ class Tablero {
         let imgFicha2 = document.querySelector("#js-ficha-2");
 
         for (let i = 0; i < cantidadFichas; i++) {
-            if (i <= fichasPorJugador) {
-                ficha = new Ficha(radio,imgFicha1,AZUL);
+            if (i < fichasPorJugador) {
+                ficha = new Ficha(radio,imgFicha1,VERDE);
             } else {
                 ficha = new Ficha(radio,imgFicha2,ROJA);
             }
-            this.asignarPosicionFicha(ficha);
+            let accion = (coordenadas,ficha) => ficha.mover(coordenadas);
+            this.asignarPosicionFicha(ficha,accion);
             this.fichas[i] = ficha;
             ficha.dibujar();
         }
     }
+
+    mostrarFondoMadera() {
+        let coordenadasFondo = new Array();
+        coordenadasFondo[X] = this.inicioTableroX;
+        coordenadasFondo[Y] = this.inicioTableroY;
+        let cargarImg = () => CanvasHelper.agregarImagen(this.imgFondoMadera,coordenadasFondo,this.width,this.height);
+        this.imgFondoMadera.onload = cargarImg.bind(this);
+    }
+
+    actualizarFondoMadera() {
+        let coordenadasFondo = new Array();
+        coordenadasFondo[X] = this.inicioTableroX;
+        coordenadasFondo[Y] = this.inicioTableroY;
+        CanvasHelper.agregarImagen(this.imgFondoMadera,coordenadasFondo,this.width,this.height);
+    }
     
-    asignarPosicionFicha(ficha) {
+    asignarPosicionFicha(ficha,accion) {
         let coordenadas = new Array();
         let inicioX;
         let finX;
         let inicioY = 400;
         let finY = CanvasHelper.getHeight() - ficha.getRadio();
-        if (ficha.getColor() == AZUL) {
+        if (ficha.getColor() == VERDE) {
             inicioX = ficha.getRadio();
             finX = this.inicioTableroX - ficha.getRadio();
             coordenadas = this.getPosicionRandom(inicioX,finX,inicioY,finY);
@@ -95,7 +149,7 @@ class Tablero {
             finX = CanvasHelper.getWidth() - ficha.getRadio();
             coordenadas = this.getPosicionRandom(inicioX,finX,inicioY,finY);
         }
-        ficha.mover(coordenadas);
+        accion(coordenadas,ficha);
     }
 
     getPosicionRandom(x1,x2,y1,y2) {
@@ -117,17 +171,22 @@ class Tablero {
 
     seleccionarFicha(e) {
         let ficha = this.buscarFicha(e);
-        if (ficha != null & !ficha.estaEnContenedor()) {
+        if (ficha != null) {
             if (this.turno == null) {
                 this.turno = ficha.getColor();
             }
 
-            if (this.turno == ficha.getColor()) {
+            if (this.puedeMoverFicha(ficha)) {
                 this.fichaSeleccionada = ficha;
+                this.offsetFicha = ficha.calcularOffset(e);
                 let canvas = CanvasHelper.getCanvas();
                 canvas.addEventListener("mousemove",this.mouseMove);
             }
         }
+    }
+
+    puedeMoverFicha(ficha) {
+        return ( this.turno == ficha.getColor() ) & ( !ficha.estaEnContenedor() ) & (this.ganador == null);
     }
 
     deseleccionarFicha() {
@@ -136,15 +195,28 @@ class Tablero {
             if (numeroColumna != -1) {
                 this.insertarFichaEnColumna(this.fichaSeleccionada,numeroColumna);
                 this.cambiarTurno();
-                CanvasHelper.limpiarCanvas();
-                this.actualizarTablero();
-                this.actualizarFichas();
+                this.actualizarTodo();
                 this.comprobarGanador(this.fichaSeleccionada);
                 this.fichaSeleccionada = null;
+            } else {
+                this.devolverFicha(this.fichaSeleccionada);
             }
         }
         let canvas = CanvasHelper.getCanvas();
         canvas.removeEventListener("mousemove",this.mouseMove);
+    }
+
+    devolverFicha(ficha) {
+        let orden = ()=> {
+            let tablero = Tablero.getInstance();
+            this.actualizarFondoMadera();
+            tablero.actualizarTablero();
+            tablero.actualizarFichas();
+            tablero.mostrarTextoJugadores();
+        }
+        let accion = (coordenadas,ficha) => ficha.animar(coordenadas,10,orden);
+        this.asignarPosicionFicha(ficha,accion);
+        this.fichaSeleccionada = null;
     }
 
     buscarColumna(ficha) {
@@ -195,10 +267,18 @@ class Tablero {
 
     moverFicha(e) {
         let coordenadas = CanvasHelper.getMousePosition(e);
+        coordenadas[X] = coordenadas[X] - this.offsetFicha[X];
+        coordenadas[Y] = coordenadas[Y] - this.offsetFicha[Y];
         this.fichaSeleccionada.mover(coordenadas);
+        this.actualizarTodo();
+    }
+
+    actualizarTodo() {
         CanvasHelper.limpiarCanvas();
+        this.actualizarFondoMadera();
         this.actualizarTablero();
         this.actualizarFichas();
+        this.mostrarTextoJugadores();
     }
 
     actualizarFichas() {
@@ -222,7 +302,7 @@ class Tablero {
         let gano = false;
         gano = this.comprobarAreaDeFicha(fila,columna)
         if (gano) {
-            alert("GANADOR")
+            this.ganador = ficha.getColor();
         }
     }
 
@@ -292,6 +372,7 @@ class Tablero {
             }
 
             if (iguales) {
+                this.cambiarColorFichas(contenedor1,direcciones[direccion]);
                 return true;
             }
         }
@@ -299,12 +380,22 @@ class Tablero {
         return false;
     }
 
+    cambiarColorFichas(contenedor,direccion) {
+        let imgFichaGanadora = document.querySelector("#js-ficha-3");
+        let ficha = contenedor.getFicha();
+        ficha.setGanadora(imgFichaGanadora);
+        for (let i = 1; i <= 3; i++) {
+            contenedor = direccion(i);
+            ficha = contenedor.getFicha();
+            ficha.setGanadora(imgFichaGanadora);
+        }
+    }
 
     cambiarTurno() {
-        if (this.turno == AZUL) {
+        if (this.turno == VERDE) {
             this.turno = ROJA;
         } else {
-            this.turno = AZUL;
+            this.turno = VERDE;
         }
     }
 }
