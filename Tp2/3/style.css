@@ -1,0 +1,16 @@
+.rojo {
+    background-color: red;
+}
+
+.azul {
+    background-color: blue;
+}
+
+.verde {
+    background-color: green;
+}
+
+div {
+    width: 100%;
+    height: 50vh;
+}
