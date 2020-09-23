@@ -10,6 +10,7 @@ class Contenedor {
     fila;
     columna;
     static imagen;
+    imgGanadora;
 
     constructor(coordenadas,ancho,alto){ 
         this.coordenadas = new Array();
@@ -21,6 +22,7 @@ class Contenedor {
         let img  = document.querySelector("#js-contenedor");
         Contenedor.imagen.src = img.src;
         this.ficha = null;
+        this.imgGanadora = null;
     }
 
     dibujar() {
@@ -28,7 +30,10 @@ class Contenedor {
     }
 
     reDibujar() {
-        CanvasHelper.agregarImagen(Contenedor.imagen,this.coordenadas,this.ancho,this.alto);
+        if (this.imgGanadora == null)
+            CanvasHelper.agregarImagen(Contenedor.imagen,this.coordenadas,this.ancho,this.alto);
+        else
+            CanvasHelper.agregarImagen(this.imgGanadora,this.coordenadas,this.ancho,this.alto);
     }
 
     getCoordenadaX(){
@@ -75,6 +80,15 @@ class Contenedor {
         } else {
             return false;
         }
+    }
+
+    setGanador(imagen) {
+        this.imgGanadora = new Image();
+        this.imgGanadora.src = imagen.src;
+        let cargarImg = ()=> {
+            CanvasHelper.agregarImagen(this.imgGanadora,this.coordenadas,this.ancho,this.alto);
+        };
+        this.imgGanadora.onload = cargarImg.bind(this);
     }
 
     setFila(fila) {

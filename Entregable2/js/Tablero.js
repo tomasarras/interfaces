@@ -372,6 +372,7 @@ class Tablero {
             }
 
             if (iguales) {
+                this.cambiarColorContenedores(contenedor1,direcciones[direccion]);
                 this.cambiarColorFichas(contenedor1,direcciones[direccion]);
                 return true;
             }
@@ -388,6 +389,22 @@ class Tablero {
             contenedor = direccion(i);
             ficha = contenedor.getFicha();
             ficha.setGanadora(imgFichaGanadora);
+        }
+    }
+
+    cambiarColorContenedores(contenedor,direccion) {
+        let imgContenedor;
+        let ficha = contenedor.getFicha();
+        if (ficha.getColor() == ROJA) {
+            imgContenedor = document.querySelector("#js-contenedor-rojo");
+        } else {
+            imgContenedor = document.querySelector("#js-contenedor-verde");
+        }
+
+        contenedor.setGanador(imgContenedor);
+        for (let i = 1; i <= 3; i++) {
+            contenedor = direccion(i);
+            ficha = contenedor.setGanador(imgContenedor);
         }
     }
 
