@@ -1,0 +1,23 @@
+.oculto {
+    display: none;
+}
+
+div > #canvas {
+    height: 86vh;
+}
+
+#canvas {
+    width: 100%;
+}
+
+.flex {
+    display: flex;
+}
+
+#div-btn  {
+    margin: 2% 0 0 3%;
+}
+
+#div-filas {
+    margin-left: 2%;
+}
