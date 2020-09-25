@@ -26,10 +26,14 @@ class Contenedor {
     }
 
     dibujar() {
-        Contenedor.imagen.onload = this.reDibujar.bind(this);
+        if (Contenedor.imagen.complete) {
+            this.cargarImg();
+        } else {
+            Contenedor.imagen.onload = this.cargarImg.bind(this);
+        }
     }
 
-    reDibujar() {
+    cargarImg() {
         if (this.imgGanadora == null)
             CanvasHelper.agregarImagen(Contenedor.imagen,this.coordenadas,this.ancho,this.alto);
         else
@@ -60,9 +64,9 @@ class Contenedor {
         let intensidadAnimacion = 30;
         let orden = ()=> {
             let tablero = Tablero.getInstance();
-            tablero.actualizarFondoMadera();
-            tablero.actualizarFichas();
-            tablero.actualizarTablero();
+            tablero.mostrarFondoMadera();
+            tablero.mostrarFichas();
+            tablero.mostrarTablero();
             tablero.mostrarTextoJugadores();
         }
 

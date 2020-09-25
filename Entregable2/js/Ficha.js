@@ -42,7 +42,11 @@ class Ficha {
     }
 
     dibujar() {
-        this.img.onload = this.reDibujar.bind(this);
+        if (this.img.complete) {
+            this.cargarImg();
+        } else {
+            this.img.onload = this.cargarImg.bind(this);
+        }
     }
 
     calcularOffset(e) {
@@ -107,7 +111,7 @@ class Ficha {
         }
     }
 
-    reDibujar() {
+    cargarImg() {
         let ctx = CanvasHelper.getCtx();
         ctx.save();
         ctx.beginPath();

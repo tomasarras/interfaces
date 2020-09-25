@@ -115,25 +115,22 @@ class Tablero {
             let accion = (coordenadas,ficha) => ficha.mover(coordenadas);
             this.asignarPosicionFicha(ficha,accion);
             this.fichas[i] = ficha;
-            ficha.dibujar();
         }
+        this.mostrarFichas();
     }
 
     mostrarFondoMadera() {
         let coordenadasFondo = new Array();
         coordenadasFondo[X] = this.inicioTableroX;
         coordenadasFondo[Y] = this.inicioTableroY;
-        let cargarImg = () => CanvasHelper.agregarImagen(this.imgFondoMadera,coordenadasFondo,this.width,this.height);
-        this.imgFondoMadera.onload = cargarImg.bind(this);
+        if (this.imgFondoMadera.complete) {
+            CanvasHelper.agregarImagen(this.imgFondoMadera,coordenadasFondo,this.width,this.height);
+        } else {
+            let cargarImg = () => CanvasHelper.agregarImagen(this.imgFondoMadera,coordenadasFondo,this.width,this.height);
+            this.imgFondoMadera.onload = cargarImg.bind(this);
+        }
     }
 
-    actualizarFondoMadera() {
-        let coordenadasFondo = new Array();
-        coordenadasFondo[X] = this.inicioTableroX;
-        coordenadasFondo[Y] = this.inicioTableroY;
-        CanvasHelper.agregarImagen(this.imgFondoMadera,coordenadasFondo,this.width,this.height);
-    }
-    
     asignarPosicionFicha(ficha,accion) {
         let coordenadas = new Array();
         let inicioX;
@@ -195,7 +192,7 @@ class Tablero {
             if (numeroColumna != -1) {
                 this.insertarFichaEnColumna(this.fichaSeleccionada,numeroColumna);
                 this.cambiarTurno();
-                this.actualizarTodo();
+                this.mostrarTodo();
                 this.comprobarGanador(this.fichaSeleccionada);
                 this.fichaSeleccionada = null;
             } else {
@@ -207,13 +204,7 @@ class Tablero {
     }
 
     devolverFicha(ficha) {
-        let orden = ()=> {
-            let tablero = Tablero.getInstance();
-            this.actualizarFondoMadera();
-            tablero.actualizarTablero();
-            tablero.actualizarFichas();
-            tablero.mostrarTextoJugadores();
-        }
+        let orden = ()=> this.mostrarTodo();
         let accion = (coordenadas,ficha) => ficha.animar(coordenadas,10,orden);
         this.asignarPosicionFicha(ficha,accion);
         this.fichaSeleccionada = null;
@@ -270,27 +261,27 @@ class Tablero {
         coordenadas[X] = coordenadas[X] - this.offsetFicha[X];
         coordenadas[Y] = coordenadas[Y] - this.offsetFicha[Y];
         this.fichaSeleccionada.mover(coordenadas);
-        this.actualizarTodo();
+        this.mostrarTodo();
     }
 
-    actualizarTodo() {
+    mostrarTodo() {
         CanvasHelper.limpiarCanvas();
-        this.actualizarFondoMadera();
-        this.actualizarTablero();
-        this.actualizarFichas();
+        this.mostrarFondoMadera();
+        this.mostrarTablero();
+        this.mostrarFichas();
         this.mostrarTextoJugadores();
     }
 
-    actualizarFichas() {
+    mostrarFichas() {
         for (let i = 0; i < this.fichas.length; i++) {
-            this.fichas[i].reDibujar();
+            this.fichas[i].dibujar();
         }
     }
 
-    actualizarTablero() {
+    mostrarTablero() {
         for (let i = 0; i < this.contenedores.length; i++) {
             for (let j = 0; j < this.contenedores[i].length; j++) {
-                this.contenedores[i][j].reDibujar();
+                this.contenedores[i][j].dibujar();
             }
         }
     }
