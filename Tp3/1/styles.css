@@ -1,0 +1,56 @@
+.rojo {
+    background-color: red;
+    position: relative;
+    width: 500px;
+    height: 500px;
+}
+
+.verde {
+    background-color: green;
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    top: 0;
+    right: 0;
+}
+
+.azul {
+    background-color: blue;
+    width: 300px;
+    height: 200px;
+    position: relative;
+    left: 150px;
+    top: 120px;
+}
+
+.amarillo {
+    background-color: yellow;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.imagen {
+    width: 300px;
+    height: 70px;
+    position: absolute;
+    left: 0;
+    top: 130px;
+    background-image: url("img/download.jpg");
+}
+
+.gradiente {
+    background: rgb(255,0,0);
+    background: linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(222,220,28,1) 13%, rgba(73,219,67,1) 28%, rgba(56,216,217,1) 45%, rgba(49,44,225,1) 57%, rgba(216,31,236,1) 73%, rgba(255,0,0,1) 100%);
+    position: absolute;
+    top: 45px;
+    left: 80px;
+    width: 100px;
+    height: 80px;
+}
+
+.lista > li {
+    background-color: purple;
+}

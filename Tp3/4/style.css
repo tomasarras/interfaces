@@ -1,0 +1,31 @@
+.hover {
+    background-color: red;
+    width: 300px;
+    height: 300px;
+    transition: background-color 1s;
+}
+
+.hover:hover {
+    background-color: green;
+    transition: background-color 1s;
+}
+
+.active {
+    background-color: yellow;
+    transition: background-color 1s;
+}
+
+.active:active {
+    background-color: red;
+    transition: background-color 1s;
+}
+
+.focus {
+    background-color: purple;
+    transition: background-color 1s;
+}
+
+.focus:focus {
+    transition: background-color 1s;
+    background-color: salmon;
+}

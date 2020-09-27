@@ -1,0 +1,33 @@
+.reloj {
+    height: 500px;
+    width: 500px;
+    border: 2px solid black;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    position: relative;
+}
+
+.segundos,.minutos,.horas {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform-origin: top center;
+    background-color: black;
+}
+
+div.segundos {
+    width: 0.1%;
+    height: 45%;
+    background-color: red;
+}
+
+div.minutos {
+    width: 0.4%;
+    height: 40%;
+}
+
+div.horas { 
+    width: 1%;
+    height: 30%;
+}
