@@ -1,0 +1,45 @@
+@keyframes animacion {
+    0% {
+        background-image: url("./img/1.png");
+    }
+    10% {
+        background-image: url("./img/2.png");
+    }
+    20% {
+        background-image: url("./img/3.png");
+    }
+    30% {
+        background-image: url("./img/4.png");
+    }
+    40% {
+        background-image: url("./img/4.png");
+    }
+    50% {
+        background-image: url("./img/5.png");
+    }
+    60% {
+        background-image: url("./img/6.png");
+    }
+    70% {
+        background-image: url("./img/7.png");
+    }
+    80% {
+        background-image: url("./img/8.png");
+    }
+    90% {
+        background-image: url("./img/9.png");
+    }
+    100% {
+        background-image: url("./img/10.png");
+    }
+}
+
+.spritesheet {
+    width: 400px;
+    height: 400px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation-duration: 900ms;
+    animation-iteration-count: infinite;
+    animation-name: animacion;
+}
