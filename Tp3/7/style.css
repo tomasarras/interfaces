@@ -1,0 +1,29 @@
+ul.acordeon li + div {
+    overflow: hidden;
+    height:  auto;
+    max-height: 0;
+    transition: max-height 0.5s;
+}
+
+ul.acordeon li + div.visible {
+    max-height: 100vh;
+}
+
+ul.acordeon {
+    width: 40%;
+}
+
+ul.acordeon li {
+    height: 30px;
+    background-color: aqua;
+    border: 1px solid black;
+}
+
+img#panda {
+    height: 300px;
+    width: 300px;
+}
+
+table, th, td {
+    border: 1px solid black;
+}

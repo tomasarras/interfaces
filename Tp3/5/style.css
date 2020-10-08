@@ -1,4 +1,4 @@
-@keyframes animacion {
+@keyframes correr {
     0% {
         background-image: url("./img/1.png");
     }
@@ -35,11 +35,34 @@
 }
 
 .spritesheet {
-    width: 400px;
-    height: 400px;
+    width: 150px;
+    height: 150px;
     background-size: contain;
     background-repeat: no-repeat;
-    animation-duration: 900ms;
+    animation-duration: 700ms;
     animation-iteration-count: infinite;
-    animation-name: animacion;
+    animation-timing-function: linear;
+}
+
+.correr {
+    animation-name: correr;
+} 
+
+.caminar {
+    background-image: url("./img/walk-right.png");
+    height: 148px;
+    width: 102px;
+    background-size: cover;
+    animation-name: correr2;
+    animation-duration: 1s;
+    animation-timing-function: steps(6);
+}
+
+@keyframes correr2{
+    0% {
+        background-position: 0px;
+    }
+    100% {
+        background-position: -612px;
+    }
 }

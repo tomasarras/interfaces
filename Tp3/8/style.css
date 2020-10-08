@@ -1,0 +1,107 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 45px;
+    color: red;
+    left: 39vw;
+    top: 35vh;
+}
+
+#vacio {
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+}
+
+#hero {
+    position: relative;
+    background-color: lightblue;
+    width: 100%;
+    overflow: hidden;
+    height: 100vh;
+}
+
+#montaña, #pasto, #arbol-der,#arbol-izq,.nube, h1 {
+    position: absolute;
+}
+
+#montaña {
+    height: 85vh;
+    width: 100%;
+}
+
+#pasto {
+    top: 75vh;
+    height: 25vh;
+    width: 100%;
+}
+
+#arbol-izq, #arbol-der {
+    top: 50vh;
+    height: 40vh;
+}
+
+#arbol-der {
+    left: 80vw;
+}
+.nube {
+    width: 15vw;
+}
+
+#nube1 {
+    top: 9vh;
+    animation: movimiento-nube1 45s infinite;
+}
+
+#nube2 {
+    left: 83vw;
+    height: 17vh;
+    animation: movimiento-nube2 30s infinite;
+}
+
+#nube3 {
+    left: 50vw;
+    animation: movimiento-nube2 60s infinite;
+    height: 35vh;
+    width: 25vw;
+}
+
+@keyframes movimiento-nube3 {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(100vw);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+
+@keyframes movimiento-nube1 {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(100vw);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes movimiento-nube2 {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(-100vw);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}

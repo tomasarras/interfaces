@@ -1,0 +1,29 @@
+
+#btn-progreso {
+    all: unset;
+    position: relative;
+    padding: 15px;
+    border-radius: 15px;
+    overflow: hidden;
+    background-color: greenyellow;
+}
+
+#btn-progreso span {
+    position: sticky;
+    z-index: 1;
+}
+
+#btn-progreso div {
+    position: absolute;
+    background-color: green;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    left: -100%;
+    top: 0;
+}
+
+#btn-progreso div.cargando {
+    left: 0;
+    transition: left 5s linear;
+}

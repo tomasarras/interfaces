@@ -1,0 +1,30 @@
+body {
+    background-color: rebeccapurple;
+    margin: 8%;
+}
+
+#slider {
+    position: relative;
+    background-color: white;
+    border-radius: 15px;
+    width: 50%; /* tamaño de slider */
+    height: 35vh;
+    overflow: hidden;
+}
+
+#slider .slide {
+    position: absolute;
+    padding: 30px;
+    left: 115%;
+    transition: left 300ms linear; /* velocidad animacion */
+    width: 100%;
+    height: 100%;
+}
+
+#slider .slide.activo {
+    left: 0;
+}
+
+#slider .slide.inactivo {
+    left: -100%;
+}
