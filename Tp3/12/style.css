@@ -49,14 +49,17 @@ div.slide {
 }
 
 .sol {
-    width: 100vw;
-    background: url("img/sol.png");
+    width: 30vw;
+    background: url("img/sol2.png");
+    background-repeat: no-repeat;
     background-size: auto 60vh;
-    top: 10vh;
+    top: 0vh;
+    left: 80vw;
+    position: sticky;
 }
 
 .outer-wrapper {
-    width: 100vh;
+    width: 400vh;
     height: 100vw;
     transform: rotate(-90deg) translateX(-100vh);
     transform-origin: top left;
