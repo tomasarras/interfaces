@@ -1,9 +1,14 @@
 body {
     margin: 0;
     padding: 0;
+    background-color: black;
 }
 
-section.loading {
+.display-none {
+    display: none;
+}
+
+section.hero {
     position: relative;
     width: 100vw;
     height: 100vh;
@@ -15,7 +20,7 @@ section.none {
     transition: opacity 1s ease-in;
 }
 
-.loading div {
+.hero div {
     position: absolute;
     background-repeat: repeat-x;
     background-size: cover;
@@ -50,7 +55,7 @@ section.none {
     animation: animar-mountains 18s linear infinite;
 }
 
-.loading div.iluminacion {
+.hero div.iluminacion {
     background: url("img/iluminacionTransparente.png");
     width: 100%;
     height: 55%;
@@ -434,3 +439,67 @@ section.none {
         clip: rect(31px, 9999px, 149px, 0);
     }
 }
+
+.portada {
+    top: 0%;
+    background-color: black;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.back-to-the-future {
+    position: absolute;
+    background: url("img/Back_to_the_Future.png");
+    background-size: cover;
+    width: 408px;
+    height: 190.7px;
+    left: 100%;
+    top: 3%;
+    transition: left 1s ease;
+}
+
+.back-to-the-future.active {
+    left: 35%;
+}
+
+.portada .delorean {
+    position: absolute;
+    background: url("img/portada3.png");
+    background-size: contain;
+    width: 720.3px;
+    height: 392.7px;
+    left: 22%;
+    top: 35%;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.portada .delorean.active {
+    opacity: 1;
+}
+
+.mouse-wheel {
+    position: absolute;
+    background: url("img/mouseWheel.png");
+    background-size: contain;
+    width: 29.375px;
+    height: 64px;
+    left: 51%;
+    top: 85%;   
+    transition: opacity 0.5s ease;
+}
+
+.portadaa {
+    width: 100vw;
+    height: 100vh;
+}
+
+.viewport {
+    height: 100vh;
+    width: 100vw;
+    background-color: white;
+    overflow: hidden;
+}
+
