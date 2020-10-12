@@ -27,7 +27,7 @@ section.none {
 }
 
 .stars {
-    background: url("img/stars.png");
+    background: url("img/parallax/stars.png");
     width: 100%;
     height: 100%;
     animation: animar-stars 290s linear infinite;
@@ -38,7 +38,7 @@ section.none {
 }
 
 .grid {
-    background: url("img/grid.png");
+    background: url("img/parallax/grid.png");
     background-size: 80vw 100vh;
     transform: rotateX(45deg);
     width: 100%;
@@ -48,7 +48,7 @@ section.none {
 }
 
 .mountains {
-    background: url("img/mountains.png");
+    background: url("img/parallax/mountains.png");
     width: 100%;
     height: 35%;
     top: 35%;
@@ -56,7 +56,7 @@ section.none {
 }
 
 .hero div.iluminacion {
-    background: url("img/iluminacionTransparente.png");
+    background: url("img/parallax/iluminacionTransparente.png");
     width: 100%;
     height: 55%;
     background-size: contain;
@@ -64,7 +64,7 @@ section.none {
 }
 
 .sol {
-    background: url("img/sol.png");
+    background: url("img/parallax/sol.png");
     width: 446px;
     height: 297.5px;
     background-size: auto 45vh;
@@ -75,7 +75,7 @@ section.none {
 }
 
 .reflection {
-    background: url("img/reflection.png");
+    background: url("img/parallax/reflection.png");
     width: 332px;
     height: 287px;
     top: 65%;
@@ -95,7 +95,7 @@ section.none {
 
 .fire div {
     position: relative;
-    background: url("img/fireLine.png");
+    background: url("img/parallax/fireLine.png");
     width: 302px;
     height: 57px;
     left: -302px;
@@ -109,7 +109,7 @@ section.none {
 .delorean {
     top: 80%;
     position: relative;
-    background: url("img/delorean.png");
+    background: url("img/parallax/delorean.png");
     width: 270px;
     height: 97.2px;
 }
@@ -146,7 +146,7 @@ section.none {
 
 .smoke {
     opacity: 0;
-    background: url("img/smoke.png");
+    background: url("img/parallax/smoke.png");
     background-size: cover;
     width: 172.8px;
     height: 256px;
@@ -173,7 +173,7 @@ section.none {
 
 .delorean .wheel {
     position: absolute;
-    background: url("img/wheel.png");
+    background: url("img/parallax/wheel.png");
     background-size: cover;
     width: 13.22%;
     height: 36.41%;
@@ -451,7 +451,7 @@ section.none {
 
 .back-to-the-future {
     position: absolute;
-    background: url("img/Back_to_the_Future.png");
+    background: url("img/portada/Back_to_the_Future.png");
     background-size: cover;
     width: 408px;
     height: 190.7px;
@@ -466,14 +466,14 @@ section.none {
 
 .portada .delorean {
     position: absolute;
-    background: url("img/portada3.png");
+    background: url("img/portada/delorean.png");
     background-size: contain;
     width: 720.3px;
     height: 392.7px;
     left: 22%;
     top: 35%;
     opacity: 0;
-    transition: opacity 1s ease;
+    transition: opacity 1s ease-in;
 }
 
 .portada .delorean.active {
@@ -482,7 +482,7 @@ section.none {
 
 .mouse-wheel {
     position: absolute;
-    background: url("img/mouseWheel.png");
+    background: url("img/portada/mouseWheel.png");
     background-size: contain;
     width: 29.375px;
     height: 64px;
@@ -491,9 +491,12 @@ section.none {
     transition: opacity 0.5s ease;
 }
 
-.portadaa {
-    width: 100vw;
-    height: 100vh;
+.center {
+    text-align: center;
+}
+
+.padding {
+    padding: 0 5% 5% 5%;
 }
 
 .viewport {
@@ -503,3 +506,57 @@ section.none {
     overflow: hidden;
 }
 
+.card div {
+    position: relative;
+    -webkit-box-shadow: 0px 0px 14px 6px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 14px 6px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 14px 6px rgba(0,0,0,0.75);
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.card div, .card div img {
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+}
+
+.card div img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+}
+
+.card .contenido {
+    transform: translateZ(50px);
+    position: absolute;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    padding-top: 95%;
+}
+
+.card img.restaurar-posicion {
+    transition: transform .3s,box-shadow .3s,-webkit-box-shadow .3s,-moz-box-shadow .3s;
+}
+
+.card {
+    height: 85vh;
+}
+
+.cards {
+    height: 200vh;
+    width: 100vw;
+    padding: 6% 4% 0 4%;
+    display: grid;
+    grid-template-columns: 25% 25% 25%;
+    grid-template-rows: 42%;
+    column-gap: 6vw;
+    row-gap: 10%;
+    /*grid-template-columns: 50% 50%;*/
+    background-color: white;
+}
