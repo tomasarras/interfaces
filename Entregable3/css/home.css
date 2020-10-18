@@ -1,0 +1,79 @@
+.portada {
+    top: 0%;
+    background-color: black;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.back-to-the-future {
+    position: absolute;
+    background: url("../img/portada/Back_to_the_Future.png");
+    background-size: cover;
+    width: 408px;
+    height: 190.7px;
+    left: 100%;
+    top: 3%;
+    transition: left 1s ease;
+}
+
+.back-to-the-future.active {
+    left: 35%;
+}
+
+.portada .delorean {
+    position: absolute;
+    background: url("../img/portada/delorean.png");
+    background-size: contain;
+    width: 720.3px;
+    height: 392.7px;
+    left: 22%;
+    top: 35%;
+    opacity: 0;
+    transition: opacity 1s ease-in;
+}
+
+.portada .delorean.active {
+    opacity: 1;
+}
+
+.mouse-wheel {
+    position: absolute;
+    background: url("../img/portada/mouseWheel.png");
+    background-size: contain;
+    width: 29.375px;
+    height: 64px;
+    left: 49%;
+    top: 85%;   
+    transition: opacity 0.5s ease;
+}
+
+
+section.descripcion {
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+}
+
+section.descripcion div {
+    border-radius: 15px;
+    background-color: black;
+    width: 60%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 3%;
+}
+
+section.descripcion p {
+    transform :translate3d(0px, 0px, 0px);
+}
+
+section.descripcion div img {
+    width: 30%;
+}

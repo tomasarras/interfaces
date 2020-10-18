@@ -1,0 +1,132 @@
+
+section.cuenta-atras {
+    background-color: white;
+    width: 100vw;
+    padding: 10%;
+}
+
+section div.contador {
+    position: relative;
+    width: 80%;
+    background-color: #3E3E3E;
+    height: 180px;
+    border-radius: 15px;
+}
+
+.contador div {
+    position: absolute;
+}
+
+.contador .note {
+    top: 10%;
+    color: white;
+    background-color: #9A0000;
+    padding: 0.2% 1%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.contador .display {
+    background-color: black;
+    border: 1px solid white;
+    height: 35%;
+    top: 35%;
+    color: #D85B2B;
+    font-family: 'digital-clock-font';
+    font-size: 4em;
+    width: 8%;
+    text-align: center;
+}
+
+.display.year {
+    left: 2%;
+    width: 15%;
+}
+
+.display.month {
+    left: 25%;
+    width: 12%;
+}
+
+.display.day {
+    left: 45%;
+}
+
+.display.hour {
+    left: 60%;
+}
+
+.display.min {
+    left: 75%;
+}
+
+.display.sec {
+    left: 90%;
+}
+
+.note.year {
+    left: 7%;
+}
+
+.note.month {
+    left: 27%;
+}
+
+.note.day {
+    left: 46.5%;
+}
+
+.note.hour {
+    left: 60.5%;
+}
+
+.note.min {
+    left: 76.9%;
+}
+
+.note.sec {
+    left: 91.5%;
+}
+
+.contador .leds div {
+    height: 25%;
+    width: 40%;
+    border-radius: 100%;
+    background-color: #EBE7A8;
+}
+
+.contador .leds {
+    position: relative;
+    top: 41%;
+    height: 25%;
+    width: 2.5%;
+}
+
+.contador .leds > div:first-child {
+    top: 50%;
+}
+
+.contador .leds.hour-min {
+    left: 71%;
+}
+
+.contador .leds.min-sec {
+    left: 86%;
+    top: 17%;
+}
+
+.contador .estreno {
+    background-color: black;
+    color: white;
+    text-align: center;
+    width: 10%;
+    left: 35%;
+    top: 80%;
+    width: 30%;
+    font-size: 1.5em;
+}
+
+@font-face{
+    font-family:'digital-clock-font';
+    src: url('../fonts/digital-7.ttf');
+}
