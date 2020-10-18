@@ -538,14 +538,21 @@ section.none {
     -moz-box-shadow: none;
     box-shadow: none;
     padding-top: 95%;
+    height: 0;
 }
 
-.card img.restaurar-posicion {
+.cards .card div.restaurar-posicion {
     transition: transform .3s,box-shadow .3s,-webkit-box-shadow .3s,-moz-box-shadow .3s;
 }
 
 .card {
-    height: 85vh;
+    height: 80vh;
+    opacity: 1;
+    transition: opacity 1s ease;
+}
+
+.card.active {
+    opacity: 1;
 }
 
 .cards {
@@ -559,4 +566,284 @@ section.none {
     row-gap: 10%;
     /*grid-template-columns: 50% 50%;*/
     background-color: white;
+}
+
+/*
+.section-contador {
+    width: 100%;
+    background-color: white;
+    padding: 10%;
+}
+
+.contador {
+    background-color: #3E3E3E;
+    height: 130px;
+    border-radius: 15px;
+    width: 80%;
+    padding: 2%;
+}
+
+.contador .notes,.contador .displays {
+    display: flex;
+}
+
+.notes div, #pm-note {
+    color: white;
+    background-color: #9A0000;
+    padding: 0.2% 1%;
+    height: 17.5%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.month-note {
+    margin-left: 5%;
+}
+
+.day-note {
+    margin-left: 12%;
+}
+
+.year-note {
+    margin-left: 14%;
+}
+
+.am-note {
+    margin-left: 8%;
+}
+
+.hour-note, .min-note {
+    margin-left: 6%;
+}
+
+.min-note {
+    margin-left: 15%;
+}
+
+.displays {
+    margin-top: 1%;
+    width: 100%;
+    height: 47.69%;
+}
+
+.displays div {
+    background-color: black;
+    border: 1px solid white;
+    height: 100%;
+    text-align: center;
+}
+
+.displays .month {
+    width: 17.44%;
+}
+
+.displays .day {
+    width: 11%;
+    margin-left: 4.4%;
+}
+
+.displays .year {
+    width: 20.87%;
+    margin-left: 4.2%;
+}
+
+.displays .am-pm {
+    margin-left: 4%;
+    border: none;
+    background-color: inherit;
+}
+
+.displays .led {
+    border: none;
+    background-color: #4F4E3A;
+    height: 15px;
+    width: 15px;
+    border-radius: 15px;
+    margin: 0 0 30% 50%;
+}
+
+#leds {
+    margin-left: 3%;
+    background-color: inherit;
+    border: none;
+}
+
+.am-pm .led.active {
+    background-color: #EBE7A8;
+}
+
+#leds div {
+    background-color: #EBE7A8;
+    border-radius: 15px;
+    height: 15px;
+    width: 15px;
+    margin: 30% 0 80% 0;
+}
+
+#pm-note {
+    border: none;
+    width: 100%;
+    height: 30%;
+    padding: 10% 40%;
+    margin-bottom: 30%;
+}
+
+.displays .hour,.displays .min {
+    width: 13%;
+    margin-left: 4.4%;
+}
+
+.contador .destination-time {
+    background-color: black;
+    width: 25%;
+    height: 20%;
+    margin: 2% auto 0 auto;
+    padding-top: 0.4%;
+    margin-top: 2%;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.displays {
+    color: #D85B2B;
+    font-family: 'digital-clock-font';
+    font-size: 4em;
+}
+
+#pm-note {
+    font-size: 16px;
+}
+*/
+
+section.cuenta-atras {
+    background-color: white;
+    width: 100vw;
+    padding: 10%;
+}
+
+section div.contador {
+    position: relative;
+    width: 80%;
+    background-color: #3E3E3E;
+    height: 180px;
+    border-radius: 15px;
+}
+
+.contador div {
+    position: absolute;
+}
+
+.contador .note {
+    top: 10%;
+    color: white;
+    background-color: #9A0000;
+    padding: 0.2% 1%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.contador .display {
+    background-color: black;
+    border: 1px solid white;
+    height: 35%;
+    top: 35%;
+    color: #D85B2B;
+    font-family: 'digital-clock-font';
+    font-size: 4em;
+    width: 8%;
+    text-align: center;
+}
+
+.display.year {
+    left: 2%;
+    width: 15%;
+}
+
+.display.month {
+    left: 25%;
+    width: 12%;
+}
+
+.display.day {
+    left: 45%;
+}
+
+.display.hour {
+    left: 60%;
+}
+
+.display.min {
+    left: 75%;
+}
+
+.display.sec {
+    left: 90%;
+}
+
+.note.year {
+    left: 7%;
+}
+
+.note.month {
+    left: 27%;
+}
+
+.note.day {
+    left: 46.5%;
+}
+
+.note.hour {
+    left: 60.5%;
+}
+
+.note.min {
+    left: 76.9%;
+}
+
+.note.sec {
+    left: 91.5%;
+}
+
+.contador .leds div {
+    height: 25%;
+    width: 40%;
+    border-radius: 100%;
+    background-color: #EBE7A8;
+}
+
+.contador .leds {
+    position: relative;
+    top: 41%;
+    height: 25%;
+    width: 2.5%;
+}
+
+.contador .leds > div:first-child {
+    top: 50%;
+}
+
+.contador .leds.hour-min {
+    left: 71%;
+}
+
+.contador .leds.min-sec {
+    left: 86%;
+    top: 17%;
+}
+
+.contador .estreno {
+    background-color: black;
+    color: white;
+    text-align: center;
+    width: 10%;
+    left: 35%;
+    top: 80%;
+    width: 30%;
+    font-size: 1.5em;
+}
+
+@font-face{
+    font-family:'digital-clock-font';
+    src: url('digital-7.ttf');
 }
