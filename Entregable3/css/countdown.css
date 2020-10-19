@@ -1,11 +1,35 @@
-
-section.cuenta-atras {
-    background-color: white;
-    width: 100vw;
-    padding: 10%;
+section.countdown img {
+    width: 30%;
+    margin-bottom: 10%;
 }
 
-section div.contador {
+.countdown img {
+    position: relative;
+    left: 70%;
+    transition: left 1s ease-out;
+}
+
+.countdown img.active {
+    left: 0;
+}
+
+section.countdown {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-items: center;
+    background-color: white;
+    padding-top: 10vh;
+    height: 90vh;
+}
+
+section div.counter.active {
+    opacity: 1;
+}
+
+section div.counter {
+    transition: opacity 1s ease-out;
+    opacity: 0;
     position: relative;
     width: 80%;
     background-color: #3E3E3E;
@@ -13,11 +37,11 @@ section div.contador {
     border-radius: 15px;
 }
 
-.contador div {
+.counter div {
     position: absolute;
 }
 
-.contador .note {
+.counter .note {
     top: 10%;
     color: white;
     background-color: #9A0000;
@@ -26,7 +50,7 @@ section div.contador {
     font-weight: bold;
 }
 
-.contador .display {
+.counter .display {
     background-color: black;
     border: 1px solid white;
     height: 35%;
@@ -88,34 +112,34 @@ section div.contador {
     left: 91.5%;
 }
 
-.contador .leds div {
+.counter .leds div {
     height: 25%;
     width: 40%;
     border-radius: 100%;
     background-color: #EBE7A8;
 }
 
-.contador .leds {
+.counter .leds {
     position: relative;
     top: 41%;
     height: 25%;
     width: 2.5%;
 }
 
-.contador .leds > div:first-child {
+.counter .leds > div:first-child {
     top: 50%;
 }
 
-.contador .leds.hour-min {
+.counter .leds.hour-min {
     left: 71%;
 }
 
-.contador .leds.min-sec {
+.counter .leds.min-sec {
     left: 86%;
     top: 17%;
 }
 
-.contador .estreno {
+.counter .estreno {
     background-color: black;
     color: white;
     text-align: center;

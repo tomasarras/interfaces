@@ -16,18 +16,12 @@ export default class Home extends Helper {
         let delorean = document.querySelector(".portada .delorean");
         delorean.classList.add("active");
         bttf.classList.add("active");
-        this.asignarEventoScroll();
+        this.activarSlider();
     }
 
-    asignarEventoScroll() {
-        const viewHeight = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
-        window.addEventListener("scroll", ()=>{
-            let coordenadaY = document.documentElement.scrollTop;
-            let normalizacion = coordenadaY / viewHeight;// numero entre 0 y 1
-            //0: inicio de la pagina, 1: cuando ya paso el hero, 1+: otro section
-            this.animarSectionUno(normalizacion);
-            this.animarSectionDos(normalizacion);
-        });
+    onScroll(normalizacion) {
+        this.animarSectionUno(normalizacion);
+        this.animarSectionDos(normalizacion);
     }
 
     animarSectionUno(normalizacion) {
@@ -61,6 +55,34 @@ export default class Home extends Helper {
     ocultarIconoMouseWheel(){ 
         let icono = document.querySelector(".mouse-wheel");
         icono.style.opacity = 0;
+    }
+
+    activarSlider() {
+        let siguienteSlide = ()=> {
+            let slideActivo = document.querySelector("#slider .slide.activo");
+            slideActivo.classList.remove("activo");
+            slideActivo.classList.add("inactivo");
+            let siguienteSlide = slideActivo.nextElementSibling;
+            siguienteSlide.classList.add("activo");
+        }
+
+        let anteriorSlide = ()=> {
+            let slideActivo = document.querySelector("#slider .slide.activo");
+            slideActivo.classList.remove("activo");
+            let anteriorSlide = slideActivo.previousElementSibling;
+            anteriorSlide.classList.add("activo");
+            anteriorSlide.classList.remove("inactivo");
+        }
+
+        let btnsSiguiente = document.querySelectorAll("#slider .btn-sig");
+        let btnsAnterior = document.querySelectorAll("#slider .btn-ant");
+        btnsSiguiente.forEach(btn => {
+            btn.addEventListener("click",siguienteSlide);
+        });
+    
+        btnsAnterior.forEach(btn => {
+            btn.addEventListener("click",anteriorSlide);
+        });
     }
 }
 

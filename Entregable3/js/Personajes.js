@@ -11,12 +11,38 @@ export default class Personajes extends Helper {
         super.start();
     }
 
-    onLoad() {
-        this.asignarEventoHoverCards();
-    }
-
     X = 0;
     Y = 1;
+
+    onLoad() {
+        this.asignarEventoHoverCards();
+        this.showRowCards(0);
+    }
+    
+    showRowCards(row) {
+        let cards = document.querySelectorAll(".card");
+        let cardsPerColumn = 3;
+        let numberCard = row * cardsPerColumn;
+        for (let i = 0; i < cardsPerColumn; i++) {
+            cards[numberCard+i].classList.add("active");
+        }
+    }
+
+    hideRowCards(row) {
+        let cards = document.querySelectorAll(".card");
+        let cardsPerColumn = 3;
+        let numberCard = row * cardsPerColumn;
+        for (let i = 0; i < cardsPerColumn; i++) {
+            cards[numberCard+i].classList.remove("active");
+        }
+    }
+
+    onScroll(normalizacion) {
+        if (normalizacion > 0.5)
+            this.showRowCards(1);
+        else
+            this.hideRowCards(1);
+    }
 
     asignarEventoHoverCards() {
         let divCards = document.querySelectorAll(".card");
@@ -71,13 +97,16 @@ export default class Personajes extends Helper {
     }
 
     getPosicion(e,card) {
+        let bounds = card.getBoundingClientRect();
         let coordenadas = new Array();
-        let x = e.pageX - card.offsetLeft;
-        let y = e.pageY - card.offsetTop;
+        let x = e.clientX - bounds.left;
+        let y = e.clientY - bounds.top;
         coordenadas[this.X] = x;
         coordenadas[this.Y] = y;
         return coordenadas;
     }
+
+    
 }
 
 document.addEventListener("DOMContentLoaded", ()=> Personajes.getInstance().start());

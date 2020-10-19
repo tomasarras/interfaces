@@ -1,9 +1,16 @@
 export default class Helper {
-    TIMPO_FORZADO = 3000;
+    TIMPO_FORZADO = 1;
     DURACION_ANIMACION = 2500;
     /* LOADER */
     start() {
         setTimeout(this.terminarAnimacion.bind(this), this.TIMPO_FORZADO);
+        const viewHeight = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+        window.addEventListener("scroll", ()=>{
+            let coordenadaY = document.documentElement.scrollTop;
+            let normalizacion = coordenadaY / viewHeight;// numero entre 0 y 1
+            //0: inicio de la pagina, 1: cuando ya paso el hero, 1+: otro section
+            this.onScroll(normalizacion);
+        });
     }
 
     terminarAnimacion() {
@@ -36,6 +43,7 @@ export default class Helper {
     }
 
     onLoad() {}
+    onScroll() {}
 
     mostrarElementosPagina() {
         let elementos = document.querySelectorAll(".display-none");

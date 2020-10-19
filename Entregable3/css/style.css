@@ -1,7 +1,10 @@
 body {
+    --primary:#E3421F;
+    --secondary:#F7E900;
+    --tertiary: black;
     margin: 0;
     padding: 0;
-    background-color: black;
+    background-color: var(--tertiary);
     overflow-x: hidden;
 }
 
@@ -30,7 +33,7 @@ nav button.hamburger-menu {
     transition: margin-left 1s ease-out;
     margin-top: 0.5%;
     margin-left: -5vw;
-    color: #E3421F;
+    color: var(--primary);
     font-size: 2.5em;
 }
 
@@ -50,9 +53,9 @@ nav .menu {
     top: 0;
     left: 0;
     z-index: 101;
-    background-color: #F7E900;
+    background-color: var(--secondary);
     position: fixed;
-    color:red;
+    color:var(--primary);
     height: 100vh;
     width: 15vw;
     position: absolute;
@@ -76,11 +79,11 @@ nav ul {
 
 nav ul li {
     margin-bottom: 5%;
-    color: #E3421F;
 }
 
 nav a:link,nav a:visited,nav a:active {
     text-decoration:none;
+    color: var(--primary);
 }
 
 section.hero {
@@ -514,12 +517,4 @@ section.hero.terminado .delorean {
         left: -1px;
         clip: rect(31px, 9999px, 149px, 0);
     }
-}
-
-.center {
-    text-align: center;
-}
-
-.padding {
-    padding: 0 5% 5% 5%;
 }

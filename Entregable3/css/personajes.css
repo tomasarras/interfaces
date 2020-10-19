@@ -2,6 +2,7 @@ body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    background-color: white;
 }
 
 .card div {
@@ -44,7 +45,8 @@ body {
 }
 
 .card {
-    height: 80vh;
+    height: 85vh;
+    width: 25%;
     opacity: 1;
     transition: opacity 1s ease;
 }
@@ -54,14 +56,49 @@ body {
 }
 
 .cards {
-    height: 200vh;
     width: 100vw;
-    padding: 6% 4% 0 4%;
-    display: grid;
-    grid-template-columns: 25% 25% 25%;
-    grid-template-rows: 42%;
-    column-gap: 6vw;
-    row-gap: 10%;
-    /*grid-template-columns: 50% 50%;*/
-    background-color: white;
+    padding: 4% 0 0 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.cards .row {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 6%;
+}
+
+.row .card {
+    position: relative;
+}
+
+.row .card:nth-of-type(1) {
+    left: -31%;
+    transition: left 1s ease-out;
+}
+
+.row .card:nth-of-type(3) {
+    left: 31%;
+    transition: left 1s ease-out;
+}
+
+.row .card:nth-of-type(2) {
+    opacity: 0;
+    transition: opacity 1s ease-out;
+}
+
+.row .card.active:nth-of-type(1),.row .card.active:nth-of-type(3) {
+    left: 0%;
+}
+
+.row .card.active:nth-of-type(2) {
+    opacity: 1;
+}
+
+.padding {
+    padding: 0 5% 5% 5%;
+}
+
+.center {
+    text-align: center;
 }

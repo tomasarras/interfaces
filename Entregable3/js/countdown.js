@@ -1,10 +1,29 @@
-document.addEventListener("DOMContentLoaded",()=>{
-    const FECHA_ESTRENO = new Date("10/28/2020/15:00");
+import Helper from "./Helper.js";
 
-    setInterval(actualizarEstreno, 1000);
-    actualizarEstreno();
-    function actualizarEstreno() {
-        let tiempoRestante = getTiempoRestante();
+export default class CountDown extends Helper {
+    static instance = new CountDown();
+    FECHA_ESTRENO = new Date("10/28/2020/15:00");
+
+    static getInstance() {
+        return this.instance;
+    }
+
+    start() {
+        super.start();
+    }
+
+    onLoad() {
+        let bttf = document.querySelector(".countdown img");
+        let countdown = document.querySelector(".countdown .counter");
+        bttf.classList.add("active");
+        countdown.classList.add("active");
+        
+        setInterval(this.actualizarEstreno.bind(this), 1000);
+        this.actualizarEstreno();
+    }
+
+    actualizarEstreno() {
+        let tiempoRestante = this.getTiempoRestante();
         document.querySelector(".display.sec").innerHTML = tiempoRestante.segundosRestantes;
         document.querySelector(".display.min").innerHTML = tiempoRestante.minutosRestantes;
         document.querySelector(".display.hour").innerHTML = tiempoRestante.horasRestantes;
@@ -13,9 +32,9 @@ document.addEventListener("DOMContentLoaded",()=>{
         document.querySelector(".display.year").innerHTML = tiempoRestante.aniosRestantes;
     }
 
-    function getTiempoRestante() {
+    getTiempoRestante() {
         let dateNow = new Date();
-        let tiempoRestanteSegundos = (FECHA_ESTRENO - dateNow) / 1000;
+        let tiempoRestanteSegundos = (this.FECHA_ESTRENO - dateNow) / 1000;
         let segundosRestantes = ("0" + Math.floor(tiempoRestanteSegundos % 60)).slice(-2);
         let minutosRestantes = ("0" + Math.floor(tiempoRestanteSegundos / 60 % 60)).slice(-2);
         let horasRestantes = ("0" + Math.floor(tiempoRestanteSegundos / 3600 % 24)).slice(-2);
@@ -31,7 +50,10 @@ document.addEventListener("DOMContentLoaded",()=>{
             aniosRestantes
         }
     }
+}
 
+document.addEventListener("DOMContentLoaded",()=>{
+    CountDown.getInstance().start();
     function getMes(numero) {
         switch(numero) {
             case 0: return "ENE";
