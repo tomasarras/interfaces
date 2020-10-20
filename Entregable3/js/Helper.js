@@ -1,5 +1,5 @@
 export default class Helper {
-    TIMPO_FORZADO = 1;
+    TIMPO_FORZADO = 3000;
     DURACION_ANIMACION = 2500;
     /* LOADER */
     start() {

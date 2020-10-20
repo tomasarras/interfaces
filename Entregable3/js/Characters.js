@@ -1,7 +1,7 @@
 import Helper from "./Helper.js";
 
-export default class Personajes extends Helper {
-    static instance = new Personajes();
+export default class Characters extends Helper {
+    static instance = new Characters();
 
     static getInstance() {
         return this.instance;
@@ -109,4 +109,4 @@ export default class Personajes extends Helper {
     
 }
 
-document.addEventListener("DOMContentLoaded", ()=> Personajes.getInstance().start());
+document.addEventListener("DOMContentLoaded", ()=> Characters.getInstance().start());

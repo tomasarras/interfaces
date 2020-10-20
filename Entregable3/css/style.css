@@ -1,19 +1,29 @@
 body {
     --primary:#E3421F;
     --secondary:#F7E900;
-    --tertiary: black;
+    --tertiary: #1c1c1c;
+    --border: 15px;
     margin: 0;
     padding: 0;
     background-color: var(--tertiary);
     overflow-x: hidden;
 }
 
-p.blanco {
-    color: white;
+section {
+    width: 100vw;
+    height: 100vh;
 }
 
 .flex {
     display: flex;
+}
+
+a.no-style {
+    text-decoration: none;
+}
+
+.text-white {
+    color: white;
 }
 
 .display-none, section.display-none {

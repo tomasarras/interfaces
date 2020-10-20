@@ -14,7 +14,6 @@ section.countdown img {
 }
 
 section.countdown {
-    display: flex;
     flex-direction: column;
     justify-self: center;
     align-items: center;
@@ -34,7 +33,7 @@ section div.counter {
     width: 80%;
     background-color: #3E3E3E;
     height: 180px;
-    border-radius: 15px;
+    border-radius: var(--border);
 }
 
 .counter div {

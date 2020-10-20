@@ -20,8 +20,10 @@ export default class Home extends Helper {
     }
 
     onScroll(normalizacion) {
+        console.log(normalizacion)
         this.animarSectionUno(normalizacion);
         this.animarSectionDos(normalizacion);
+        this.animarSectionTres(normalizacion);
     }
 
     animarSectionUno(normalizacion) {
@@ -42,8 +44,21 @@ export default class Home extends Helper {
         }
 
         if (normalizacion >= inicio && normalizacion <= fin) {
-            let temp = (normalizacion / inicio) -1;
-            div.style.transform = "scale(" + temp + ")";
+            let algorithm = (((normalizacion - inicio) * 100) / (fin - inicio) ) /100;
+            div.style.transform = "scale(" + algorithm + ")";
+        }
+    }
+
+    animarSectionTres(normalizacion) {
+        let sectionCarrousel = document.querySelector("section.carrousel .container");
+        let inicio = 1.35;
+        let fin = 1.84;
+        
+        if (normalizacion > inicio) {
+            let algorithm = (((normalizacion - inicio) * 100) / (fin - inicio) ) /100;
+            sectionCarrousel.style.opacity = algorithm;
+        } else {
+            sectionCarrousel.style.opacity = 0;
         }
     }
 
