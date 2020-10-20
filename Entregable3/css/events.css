@@ -4,6 +4,7 @@ body {
 
 section.events {
     padding-top: 3%;
+    margin-bottom: 5%;
     background-color: white;
     justify-content: center;
     height: auto;
@@ -62,7 +63,15 @@ ul.acordeon li div.content.active {
     height: auto;
 }
 
+#bttf-the-musical {
+    width: 35%;
+    height: auto;
+    margin-right: 5%;
+}
+
 .events .expositors {
+    margin-top: 3%;
+    padding-bottom: 5%;
     display: flex;
     justify-content: space-around;
 }
@@ -70,4 +79,8 @@ ul.acordeon li div.content.active {
 .events img.expositor {
     width: 100px;
     height: auto;
+}
+
+.card img.restaurar-posicion {
+    transition: transform .3s,box-shadow .3s,-webkit-box-shadow .3s,-moz-box-shadow .3s;
 }

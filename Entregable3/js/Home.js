@@ -17,48 +17,52 @@ export default class Home extends Helper {
         delorean.classList.add("active");
         bttf.classList.add("active");
         this.activarSlider();
+        this.animarBtnFormulario();
     }
 
     onScroll(normalizacion) {
-        console.log(normalizacion)
-        this.animarSectionUno(normalizacion);
-        this.animarSectionDos(normalizacion);
-        this.animarSectionTres(normalizacion);
-    }
-
-    animarSectionUno(normalizacion) {
-        let delorean = document.querySelector(".portada .delorean");
-        delorean.style.transform = "translateY(" + (normalizacion * 80) + "%)";
-        if (normalizacion == 0)
-            this.mostrarIconoMouseWheel();
-        else
-            this.ocultarIconoMouseWheel();
-    }
-
-    animarSectionDos(normalizacion) {
-        let div = document.querySelector("section.descripcion div");
-        let inicio = 0.4;
-        let fin = 0.8;
-        if (normalizacion < inicio) {
-            div.style.transform = "scale(0)";
+        let animarSectionUno = (normalizacion) => {
+            let delorean = document.querySelector(".portada .delorean");
+            delorean.style.transform = "translateY(" + (normalizacion * 80) + "%)";
+            if (normalizacion == 0)
+                this.mostrarIconoMouseWheel();
+            else
+                this.ocultarIconoMouseWheel();
         }
 
-        if (normalizacion >= inicio && normalizacion <= fin) {
-            let algorithm = (((normalizacion - inicio) * 100) / (fin - inicio) ) /100;
-            div.style.transform = "scale(" + algorithm + ")";
+        let animarSectionDos = (normalizacion) => {
+            let div = document.querySelector("section.descripcion div");
+            div.style.transform = "scale(" + normalizacion + ")";
         }
+
+        let animarSectionTres = (normalizacion) => {
+            let carrousel = document.querySelector("section.carrousel .container #slider");
+            carrousel.style.opacity = normalizacion;
+        }
+
+        let animarFooter = (normalizacion) => {
+            let img = document.querySelector("footer img");
+            let form = document.querySelector("footer .form");
+            img.style.opacity = normalizacion;
+            form.style.opacity = normalizacion;
+        }
+
+        this.animarSection(normalizacion,0,1,animarSectionUno);
+        this.animarSection(normalizacion,0.4,0.8,animarSectionDos);
+        this.animarSection(normalizacion,1.35,1.95,animarSectionTres);
+        this.animarSection(normalizacion,2.3,2.6,animarFooter);
     }
 
-    animarSectionTres(normalizacion) {
-        let sectionCarrousel = document.querySelector("section.carrousel .container");
-        let inicio = 1.35;
-        let fin = 1.84;
-        
+    animarSection(normalizacion,inicio,fin,animacion) {
         if (normalizacion > inicio) {
-            let algorithm = (((normalizacion - inicio) * 100) / (fin - inicio) ) /100;
-            sectionCarrousel.style.opacity = algorithm;
+            if (normalizacion < fin) {
+                let algorithm = (((normalizacion - inicio) * 100) / (fin - inicio) ) /100;
+                animacion(algorithm);
+            } else {
+                animacion(1);
+            }
         } else {
-            sectionCarrousel.style.opacity = 0;
+            animacion(0);
         }
     }
 
@@ -70,6 +74,18 @@ export default class Home extends Helper {
     ocultarIconoMouseWheel(){ 
         let icono = document.querySelector(".mouse-wheel");
         icono.style.opacity = 0;
+    }
+
+    animarBtnFormulario() {
+        let btn = document.querySelector("#btn-enviar-form");
+        btn.addEventListener("click",(e)=> {
+            e.preventDefault();
+            btn.classList.add("enviando");
+            setTimeout(() => {
+                let form = document.querySelector("footer form");
+                form.submit();
+            }, 1500);
+        });
     }
 
     activarSlider() {

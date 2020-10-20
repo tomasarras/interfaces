@@ -77,6 +77,7 @@ section.descripcion div img {
 
 section.carrousel {
     background-color: white;
+    padding-bottom: 15vh;
 }
 section.carrousel {
     justify-content: center;
@@ -129,32 +130,49 @@ section.carrousel {
     justify-content: space-around;
 }
 
-.btn:hover,
-.btn:focus {
-    -webkit-animation: pulse 1s;
-    animation: pulse 1s;
-    box-shadow: 0 0 0 2em rgba(255, 255, 255, 0);
+footer {
+    display: flex;
+    height: 45vh;
+    color: white;
+    justify-content: space-between;
 }
 
-.btn:hover,
-.btn:focus {
-    box-shadow: inset 8em 0 0 0 var(--primary);
+footer img {
+    width: 422px;
+    height: 198px;
+    padding: 2%;
 }
 
-.btn {
-    color: var(--secondary);
-    -webkit-transition: 0.25s;
-    transition: 0.25s;
+footer p {
+    font-size: 2em;
 }
-.btn:hover, .btn:focus {
-    border-color: var(--primary);
-    color: #fff;
+
+footer textarea {
+    width: 92.8%;
 }
-.btn {
-    background: none;
-    border: 2px solid;
-    font: inherit;
-    line-height: 1;
-    margin: 0.5em;
-    padding: 1em 2em;
+
+footer div.form form {
+    justify-content: space-between;
+}
+
+footer div.form {
+    width: 45%;
+    margin-right: 5%;
+}
+
+footer #div-button {
+    margin-top: 1.7%;
+}
+
+footer #btn-enviar-form:hover {
+    box-shadow: none;
+    outline: none;
+    transition: .25s box-shadow ease-out;
+}
+
+footer #btn-enviar-form.enviando:focus,footer button.btn.enviando:hover {
+    transition: 1s box-shadow ease-out;
+    box-shadow: inset 8em 0 #4BB543;
+    outline: none;
+    border:2px solid #4BB543;
 }
