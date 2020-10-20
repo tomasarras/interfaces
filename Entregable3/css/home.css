@@ -1,0 +1,178 @@
+section.portada {
+    top: 0%;
+    background-color: var(--tertiary);
+    position: relative;
+    overflow: hidden;
+}
+
+.back-to-the-future {
+    position: absolute;
+    background: url("../img/portada/Back_to_the_Future.png");
+    background-size: cover;
+    width: 408px;
+    height: 190.7px;
+    left: 100%;
+    top: 3%;
+    transition: left 1s ease;
+}
+
+.back-to-the-future.active {
+    left: 35%;
+}
+
+.portada .delorean {
+    position: absolute;
+    background: url("../img/portada/delorean.png");
+    background-size: contain;
+    width: 720.3px;
+    height: 392.7px;
+    left: 22%;
+    top: 35%;
+    opacity: 0;
+    transition: opacity 1s ease-in;
+}
+
+.portada .delorean.active {
+    opacity: 1;
+}
+
+.mouse-wheel {
+    position: absolute;
+    background: url("../img/portada/mouseWheel.png");
+    background-size: contain;
+    width: 29.375px;
+    height: 64px;
+    left: 49%;
+    top: 85%;   
+    transition: opacity 0.5s ease;
+}
+
+
+section.descripcion {
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+}
+
+section.descripcion div {
+    border-radius: var(--border);
+    background-color: var(--tertiary);
+    width: 80%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 3%;
+}
+
+section.descripcion p {
+    transform :translate3d(0px, 0px, 0px);
+    color: var(--secondary);
+}
+
+section.descripcion div img {
+    width: 30%;
+}
+
+section.carrousel {
+    background-color: white;
+    padding-bottom: 15vh;
+}
+section.carrousel {
+    justify-content: center;
+    align-items: center;
+}
+
+.carrousel .container {
+    width: 80%;
+    height: 80%;
+    background-color: var(--tertiary);
+    border-radius: var(--border);
+    padding: 2%;
+}
+
+#slider {
+    position: relative;
+    background-color: white;
+    border-radius: var(--border);
+    width: 100%; /* tamaño de slider */
+    height: 100%;
+    overflow: hidden;
+    background-color: inherit;
+}
+
+#slider .slide {
+    top: 0;
+    position: absolute;
+    left: 115%;
+    transition: left 400ms ease-out; /* velocidad animacion */
+    width: 100%;
+    height: 100%;
+}
+
+#slider .slide.activo {
+    left: 0;
+}
+
+#slider .slide.inactivo {
+    left: -100%;
+}
+
+#slider img {
+    width: 100%;
+    height: 85%;
+}
+
+#slider .buttons {
+    padding-top: 0%;
+    display: flex;
+    justify-content: space-around;
+}
+
+footer {
+    display: flex;
+    height: 45vh;
+    color: white;
+    justify-content: space-between;
+}
+
+footer img {
+    width: 422px;
+    height: 198px;
+    padding: 2%;
+}
+
+footer p {
+    font-size: 2em;
+}
+
+footer textarea {
+    width: 92.8%;
+}
+
+footer div.form form {
+    justify-content: space-between;
+}
+
+footer div.form {
+    width: 45%;
+    margin-right: 5%;
+}
+
+footer #div-button {
+    margin-top: 1.7%;
+}
+
+footer #btn-enviar-form:hover {
+    box-shadow: none;
+    outline: none;
+    transition: .25s box-shadow ease-out;
+}
+
+footer #btn-enviar-form.enviando:focus,footer button.btn.enviando:hover {
+    transition: 1s box-shadow ease-out;
+    box-shadow: inset 8em 0 #4BB543;
+    outline: none;
+    border:2px solid #4BB543;
+}
