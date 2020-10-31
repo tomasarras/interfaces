@@ -1,13 +1,22 @@
 body {
-    background-color: white;
+    background: url("../img/backgrounds/2171_10830.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 section.events {
-    padding-top: 3%;
+    padding-top: 7%;
     margin-bottom: 5%;
     background-color: white;
     justify-content: center;
     height: auto;
+    background: url("../img/backgrounds/2171_10830.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 section.events ul.acordeon {
@@ -42,7 +51,7 @@ ul.acordeon li div.content {
 }
 
 ul.acordeon li div.content.active {
-    max-height: 100vh;
+    max-height: 110vh;
 }
 
 #img-event-1 {
@@ -61,6 +70,7 @@ ul.acordeon li div.content.active {
 #back-to-the-future {
     width: 20%;
     height: auto;
+    margin-bottom: 2%;
 }
 
 #bttf-the-musical {
