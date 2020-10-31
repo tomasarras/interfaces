@@ -15,6 +15,9 @@ export default class CountDown extends Helper {
     onLoad() {
         let bttf = document.querySelector(".countdown img");
         let countdown = document.querySelector(".countdown .counter");
+        let section = document.querySelector("section.countdown");
+        
+        section.classList.add("active");
         bttf.classList.add("active");
         countdown.classList.add("active");
         

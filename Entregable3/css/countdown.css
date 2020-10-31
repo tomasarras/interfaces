@@ -1,9 +1,14 @@
-section.countdown img {
-    width: 30%;
-    margin-bottom: 10%;
+body {
+    background: url("../img/backgrounds/2191_00382.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
-.countdown img {
+section.countdown img {
+    width: 30%;
+    margin-bottom: 5%;
     position: relative;
     left: 70%;
     transition: left 1s ease-out;
@@ -13,13 +18,24 @@ section.countdown img {
     left: 0;
 }
 
+section.countdown.active {
+    opacity: 1;
+}
+
 section.countdown {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
     flex-direction: column;
     justify-self: center;
     align-items: center;
-    background-color: white;
-    padding-top: 10vh;
-    height: 90vh;
+    padding-top: 4%;
+    margin-bottom: 5%;
+    margin-top: 15vh;
+    height: 72vh;
+    width: 70%;
+    margin-left: 15%;
+    background-color: var(--tertiary);
+    border-radius: var(--border);
 }
 
 section div.counter.active {
@@ -30,7 +46,7 @@ section div.counter {
     transition: opacity 1s ease-out;
     opacity: 0;
     position: relative;
-    width: 80%;
+    width: 95%;
     background-color: #3E3E3E;
     height: 180px;
     border-radius: var(--border);

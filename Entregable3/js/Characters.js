@@ -37,8 +37,9 @@ export default class Characters extends Helper {
         }
     }
 
-    onScroll(normalizacion) {
-        if (normalizacion > 0.5)
+    onScroll() {
+        this.animarSeparadorDelorean(0.1,1);
+        if (this.normalizacion > 0.5)
             this.showRowCards(1);
         else
             this.hideRowCards(1);
