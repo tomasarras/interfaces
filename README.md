@@ -16,6 +16,6 @@ https://tomasarras.github.io/interfaces/Entregable2/
 <br>
 
 ## Estreno de pelicula
-https://tomasarras.github.io/interfaces/Entregable2/
+https://tomasarras.github.io/interfaces/Entregable3/
 
 ![estreno de pelicula](https://user-images.githubusercontent.com/52612929/115936545-ec6db200-a46b-11eb-96a7-695376cd79e1.png)
