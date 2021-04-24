@@ -2,7 +2,7 @@ import Helper from "./Helper.js";
 
 export default class CountDown extends Helper {
     static instance = new CountDown();
-    FECHA_ESTRENO = new Date("11/28/2020/15:00");
+    FECHA_ESTRENO = new Date("11/28/2120/15:00");
 
     static getInstance() {
         return this.instance;
