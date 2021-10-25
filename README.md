@@ -19,3 +19,7 @@ https://tomasarras.github.io/interfaces/Entregable2/
 https://tomasarras.github.io/interfaces/Entregable3/
 
 ![estreno de pelicula](https://user-images.githubusercontent.com/52612929/115936545-ec6db200-a46b-11eb-96a7-695376cd79e1.png)
+
+## Estreno de pelicula viejo
+https://tomasarras.github.io/interfaces/Entregable3Old/
+![Screenshot from 2021-10-24 22-24-00](https://user-images.githubusercontent.com/52612929/138621621-014378ff-a5cd-4e55-bf63-4c97baca4182.png)
